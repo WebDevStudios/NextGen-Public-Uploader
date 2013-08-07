@@ -3,7 +3,7 @@
 Plugin Name: NextGEN Public Uploader
 Plugin URI: http://webdevstudios.com/plugin/nextgen-public-uploader/
 Description: NextGEN Public Uploader is an extension to NextGEN Gallery which allows frontend image uploads for your users.
-Version: 1.7.1
+Version: 1.7.2
 Author: WebDevStudios
 Author URI: http://webdevstudios.com
 
@@ -24,9 +24,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
+/*
+NOTE: description selection failing here: ngg-db.php file, line 579. $images = $wpdb->get_results("SELECT t.*, tt.* FROM $wpdb->nggpictures AS t INNER JOIN $wpdb->nggallery AS tt ON t.galleryid = tt.gid WHERE t.pid IN ($id_list) $exclude_clause $order_clause", OBJECT_K);
+ */
+require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 // If NextGEN Gallery doesn't exist, or it's not active...
-if ( ! class_exists('nggLoader') || ! in_array( 'nextgen-gallery/nggallery.php', get_option('active_plugins') ) ) {
+if ( ! class_exists('nggLoader') && ( ! is_plugin_active_for_network( 'nextgen-gallery/nggallery.php' ) || ! in_array( 'nextgen-gallery/nggallery.php', get_option('active_plugins') ) ) ) {
 
 	// Display Error Message
 	add_action( 'admin_notices', 'npu_error_message');
@@ -62,7 +65,7 @@ function npu_plugin_activation() {
 		update_option( 'npu_no_file', 					__( 'No file selected.', 'ngg-public-uploader' ) );
 		update_option( 'npu_notlogged', 				__( 'You are not authorized to upload an image.', 'ngg-public-uploader' ) );
 		update_option( 'npu_upload_success', 			__( 'Your image has been successfully uploaded.', 'ngg-public-uploader' ) );
-		update_option( 'npu_description_text', 			__( 'Your upload failed. Please try again.', 'ngg-public-uploader' ) );
+		update_option( 'npu_upload_failed', 			__( 'Your upload failed. Please try again.', 'ngg-public-uploader' ) );
 		update_option( 'npu_image_link_love', 			'' );
 	}
 
@@ -226,6 +229,7 @@ if ( ! current_user_can('manage_options') )
 
 		<h3><?php _e('Shortcode Examples', 'ngg-public-uploader') ?></h3>
 		<p><?php printf( __( 'To insert the public uploader into any content area, use %s or %s, where %s is the ID of the corresponding gallery.' ), '<code>[ngg_uploader]</code>', '<code>[ngg_uploader id=1]</code>', '<strong>1</strong>' ); ?></p>
+		<p><?php printf( __( 'The shortcode also supports multiple galleries, using a comma-separated list of gallery IDs: %s' ), '<code>[ngg_uploader id="3,4,16"]</code>' ); ?></p>
 
 		<form action="options.php" method="post">
 
