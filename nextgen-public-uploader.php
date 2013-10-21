@@ -207,7 +207,7 @@ function npu_settings_sanitization( $input ) {
 function npu_plugin_options_page() {
 
 // If the user cannot manage options, bail here
-if ( ! current_user_can('manage_options') )
+if ( ! current_user_can( 'manage_options' ) )
 	return false;
 
 ?>
@@ -231,13 +231,10 @@ if ( ! current_user_can('manage_options') )
 		<form action="options.php" method="post">
 
 			<?php
-				settings_fields('npu_settings');
-				do_settings_sections('nextgen-public-uploader');
+				settings_fields( 'npu_settings' );
+				do_settings_sections( 'nextgen-public-uploader' );
+				submit_button();
 			?>
-
-			<p class="submit">
-				<input class="button-primary" type="submit" name="Submit" value="<?php _e('Save Changes') ?>" />
-			</p>
 
 		</form>
 
