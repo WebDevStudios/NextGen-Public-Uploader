@@ -63,7 +63,7 @@ function npu_plugin_activation() {
 		update_option( 'npu_no_file', 					__( 'No file selected.', 'ngg-public-uploader' ) );
 		update_option( 'npu_notlogged', 				__( 'You are not authorized to upload an image.', 'ngg-public-uploader' ) );
 		update_option( 'npu_upload_success', 			__( 'Your image has been successfully uploaded.', 'ngg-public-uploader' ) );
-		update_option( 'npu_description_text', 			__( 'Your upload failed. Please try again.', 'ngg-public-uploader' ) );
+		update_option( 'npu_upload_failed', 			__( 'Your upload failed. Please try again.', 'ngg-public-uploader' ) );
 		update_option( 'npu_image_link_love', 			'' );
 	}
 
