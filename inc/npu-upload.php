@@ -509,11 +509,14 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 
 		// Function: Send Email Notice
 		public function sendEmail() {
-			if(get_option('npu_notification_email')){
-				$to = get_option('npu_notification_email');
-				$subject = "New Image Pending Review - NextGEN Public Uploader";
-				$message = "A new image has been submitted and is waiting to be reviewed.";
-				wp_mail( $to, $subject, $message);
+
+			if ( get_option( 'npu_notification_email' ) ) {
+
+				$to      = apply_filters( 'npu_gallery_upload_send_email_to', get_option( 'npu_notification_email' ), $this );
+				$subject = apply_filters( 'npu_gallery_upload_send_email_subject', "New Image Pending Review - NextGEN Public Uploader", $this );
+				$message = apply_filters( 'npu_gallery_upload_send_email_message', "A new image has been submitted and is waiting to be reviewed.", $this );
+
+				wp_mail( $to, $subject, $message );
 			}
 		}
 
