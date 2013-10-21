@@ -194,9 +194,15 @@ if (!class_exists("npuGalleryUpload")) {
 			} else {
 				$npu_selected_user_role = get_option('npu_user_role_select');
 				if (current_user_can('level_'. $npu_selected_user_role . '') || get_option('npu_user_role_select') == 99) {
+
+					$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_before_form', '', $this );
+
 					$strOutput .= "<div id=\"uploadimage\">";
 					$strOutput .= "\n\t<form name=\"uploadimage\" id=\"uploadimage_form\" method=\"POST\" enctype=\"multipart/form-data\" accept-charset=\"utf-8\" >";
-			   		$strOutput .= wp_nonce_field('ngg_addgallery', '_wpnonce', true , false);
+					$strOutput .= wp_nonce_field('ngg_addgallery', '_wpnonce', true , false);
+
+					$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_pre_input', '', $this );
+
 					$strOutput .= "\n\t<div class=\"uploader\">";
 					$strOutput .= "\n\t<input type=\"file\" name=\"imagefiles\" id=\"imagefiles\"/>";
 					$strOutput .= "\n</div>";
@@ -216,6 +222,9 @@ if (!class_exists("npuGalleryUpload")) {
 						$strOutput .= "<br />";
 						$strOutput .= "\n\t<input type=\"text\" name=\"imagedescription\" id=\"imagedescription\"/>";
 					}
+
+					$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_before_submit', '', $this );
+
 			   	 	$strOutput .= "\n\t<div class=\"submit\"><br />";
 					if(get_option('npu_upload_button')) {
 						$strOutput .= "\n\t\t<input class=\"button-primary\" type=\"submit\" name=\"uploadimage\" id=\"uploadimage_btn\" ";
@@ -226,6 +235,8 @@ if (!class_exists("npuGalleryUpload")) {
 					$strOutput .= "\n\t\t</div>";
 					$strOutput .= "\n</form>";
 					$strOutput .= "\n</div>";
+
+					$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_after_form', '', $this );
 				}
 			}
 
