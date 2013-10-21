@@ -1,30 +1,29 @@
 <?php
 
-if (!class_exists("npuGalleryUpload")) {
+if ( ! class_exists( 'npuGalleryUpload' ) ) {
 
 	// Public Variables
 	class npuGalleryUpload {
-		public $arrImageIds;
-		public $strGalleryPath = false;
-		public $blnRedirectPage = false;
-		public $arrUploadedThumbUrls = false;
-		public $arrUploadedImageUrls = false;
-		public $arrErrorMsg = array();
-		public $arrImageMsg = array();
-		public $arrErrorMsg_widg = array();
-		public $arrImageMsg_widg = array();
-		public $arrImageNames = array();
-		public $arrImageMeta = array();
-		public $strTitle = false;
-		public $strDescription = false;
-		public $strKeywords = false;
-		public $strTimeStamp = false;
+		public $arrImageIds          = array();
+		public $strGalleryPath       = '';
+		public $blnRedirectPage      = false;
+		public $arrUploadedThumbUrls = array();
+		public $arrUploadedImageUrls = array();
+		public $arrErrorMsg          = array();
+		public $arrImageMsg          = array();
+		public $arrErrorMsg_widg     = array();
+		public $arrImageMsg_widg     = array();
+		public $arrImageNames        = array();
+		public $arrImageMeta         = array();
+		public $strTitle             = '';
+		public $strDescription       = '';
+		public $strKeywords          = '';
+		public $strTimeStamp         = '';
 
 		// Function: Constructors
-		public function __construct()
-		{
-			add_shortcode("ngg_uploader", array(&$this, 'shortcode_show_uploader')); // Shortcode Uploader
-			add_action('widgets_init', array(&$this, 'npu_upload_register')); // Widget Uploader
+		public function __construct() {
+			add_shortcode( 'ngg_uploader', array( $this, 'shortcode_show_uploader' ) ); // Shortcode Uploader
+			add_action( 'widgets_init'   , array( $this, 'npu_upload_register' ) ); // Widget Uploader
 		}
 
 		// Function: Register Widget
