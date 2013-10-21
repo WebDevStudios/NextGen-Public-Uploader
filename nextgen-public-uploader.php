@@ -83,7 +83,7 @@ function npu_link_love() { echo '<p><a href="http://wordpress.org/extend/plugins
 // Register our settings page as a submenu item of the NextGEN menu item
 add_action('admin_menu', 'npu_plugin_menu');
 function npu_plugin_menu() {
-	add_submenu_page( 'nextgen-gallery', 'NextGEN Public Uploader', 'Public Uploader', 'manage_options', 'nextgen-public-uploader', 'npu_plugin_options_page' );
+	add_submenu_page( NGGFOLDER, 'NextGEN Public Uploader', 'Public Uploader', 'manage_options', 'nextgen-public-uploader', 'npu_plugin_options_page' );
 	add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'filter_plugin_actions' );
 }
 
