@@ -41,12 +41,12 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 					continue;
 				}
 				$id = "npu-gallery-upload-$o";
-				wp_register_sidebar_widget($id, $name, array(&$this, 'npu_upload_output'), $widget_ops, array('number' => $o));
-				wp_register_widget_control($id, $name, array(&$this, 'npu_upload_control'), $control_ops, array('number' => $o));
+				wp_register_sidebar_widget($id, $name, array($this, 'npu_upload_output'), $widget_ops, array('number' => $o));
+				wp_register_widget_control($id, $name, array($this, 'npu_upload_control'), $control_ops, array('number' => $o));
 			}
 			if ( !$id ) {
-				wp_register_sidebar_widget( 'npu-gallery-upload-1', $name, array(&$this, 'npu_upload_output'), $widget_ops, array( 'number' => -1 ) );
-				wp_register_widget_control( 'npu-gallery-upload-1', $name, array(&$this, 'npu_upload_control'), $control_ops, array( 'number' => -1 ) );
+				wp_register_sidebar_widget( 'npu-gallery-upload-1', $name, array($this, 'npu_upload_output'), $widget_ops, array( 'number' => -1 ) );
+				wp_register_widget_control( 'npu-gallery-upload-1', $name, array($this, 'npu_upload_control'), $control_ops, array( 'number' => -1 ) );
 			}
 		}
 
