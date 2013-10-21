@@ -1,30 +1,29 @@
 <?php
 
-if (!class_exists("npuGalleryUpload")) {
+if ( ! class_exists( 'npuGalleryUpload' ) ) {
 
 	// Public Variables
 	class npuGalleryUpload {
-		public $arrImageIds;
-		public $strGalleryPath = false;
-		public $blnRedirectPage = false;
-		public $arrUploadedThumbUrls = false;
-		public $arrUploadedImageUrls = false;
-		public $arrErrorMsg = array();
-		public $arrImageMsg = array();
-		public $arrErrorMsg_widg = array();
-		public $arrImageMsg_widg = array();
-		public $arrImageNames = array();
-		public $arrImageMeta = array();
-		public $strTitle = false;
-		public $strDescription = false;
-		public $strKeywords = false;
-		public $strTimeStamp = false;
+		public $arrImageIds          = array();
+		public $strGalleryPath       = '';
+		public $blnRedirectPage      = false;
+		public $arrUploadedThumbUrls = array();
+		public $arrUploadedImageUrls = array();
+		public $arrErrorMsg          = array();
+		public $arrImageMsg          = array();
+		public $arrErrorMsg_widg     = array();
+		public $arrImageMsg_widg     = array();
+		public $arrImageNames        = array();
+		public $arrImageMeta         = array();
+		public $strTitle             = '';
+		public $strDescription       = '';
+		public $strKeywords          = '';
+		public $strTimeStamp         = '';
 
 		// Function: Constructors
-		public function __construct()
-		{
-			add_shortcode("ngg_uploader", array(&$this, 'shortcode_show_uploader')); // Shortcode Uploader
-			add_action('widgets_init', array(&$this, 'npu_upload_register')); // Widget Uploader
+		public function __construct() {
+			add_shortcode( 'ngg_uploader', array( $this, 'shortcode_show_uploader' ) ); // Shortcode Uploader
+			add_action( 'widgets_init'   , array( $this, 'npu_upload_register' ) ); // Widget Uploader
 		}
 
 		// Function: Register Widget
@@ -42,12 +41,12 @@ if (!class_exists("npuGalleryUpload")) {
 					continue;
 				}
 				$id = "npu-gallery-upload-$o";
-				wp_register_sidebar_widget($id, $name, array(&$this, 'npu_upload_output'), $widget_ops, array('number' => $o));
-				wp_register_widget_control($id, $name, array(&$this, 'npu_upload_control'), $control_ops, array('number' => $o));
+				wp_register_sidebar_widget($id, $name, array($this, 'npu_upload_output'), $widget_ops, array('number' => $o));
+				wp_register_widget_control($id, $name, array($this, 'npu_upload_control'), $control_ops, array('number' => $o));
 			}
 			if ( !$id ) {
-				wp_register_sidebar_widget( 'npu-gallery-upload-1', $name, array(&$this, 'npu_upload_output'), $widget_ops, array( 'number' => -1 ) );
-				wp_register_widget_control( 'npu-gallery-upload-1', $name, array(&$this, 'npu_upload_control'), $control_ops, array( 'number' => -1 ) );
+				wp_register_sidebar_widget( 'npu-gallery-upload-1', $name, array($this, 'npu_upload_output'), $widget_ops, array( 'number' => -1 ) );
+				wp_register_widget_control( 'npu-gallery-upload-1', $name, array($this, 'npu_upload_control'), $control_ops, array( 'number' => -1 ) );
 			}
 		}
 
@@ -459,13 +458,13 @@ if (!class_exists("npuGalleryUpload")) {
 			global $wpdb;
 			$arrUpdateFields = array();
 			if (isset($_POST['imagedescription']) && !empty($_POST['imagedescription'])) {
-				$this->strDescription = $wpdb->escape($_POST['imagedescription']);
+				$this->strDescription = esc_sql( $_POST['imagedescription'] );
 				$arrUpdateFields[] = "description = '$this->strDescription'";
 			} else {
 				return;
 			}
 			if (isset ($_POST['alttext']) && !empty($_POST['alttext'])) {
-				$this->strTitle = $wpdb->escape($_POST['alttext']);
+				$this->strTitle = esc_sql( $_POST['alttext'] );
 				$arrUpdateFields[] = "alttext = '$this->strTitle'";
 			}
 			if (isset ($_POST['tags']) && !empty($_POST['tags'])) {
@@ -510,11 +509,14 @@ if (!class_exists("npuGalleryUpload")) {
 
 		// Function: Send Email Notice
 		public function sendEmail() {
-			if(get_option('npu_notification_email')){
-				$to = get_option('npu_notification_email');
-				$subject = "New Image Pending Review - NextGEN Public Uploader";
-				$message = "A new image has been submitted and is waiting to be reviewed.";
-				wp_mail( $to, $subject, $message);
+
+			if ( get_option( 'npu_notification_email' ) ) {
+
+				$to      = apply_filters( 'npu_gallery_upload_send_email_to', get_option( 'npu_notification_email' ), $this );
+				$subject = apply_filters( 'npu_gallery_upload_send_email_subject', "New Image Pending Review - NextGEN Public Uploader", $this );
+				$message = apply_filters( 'npu_gallery_upload_send_email_message', "A new image has been submitted and is waiting to be reviewed.", $this );
+
+				wp_mail( $to, $subject, $message );
 			}
 		}
 
