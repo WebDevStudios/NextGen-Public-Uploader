@@ -167,7 +167,7 @@ if (!class_exists("npuGalleryUpload")) {
 		}
 
 		// Function: Shortcode Form
-		public function display_uploader($gal_id, $strDetailsPage = false, $blnShowAltText = true, $echo = true) {
+		public function display_uploader( $gal_id, $strDetailsPage = false, $blnShowAltText = true, $echo = true ) {
 			$strOutput = "";
 			if (count($this->arrErrorMsg) > 0) {
 				$strOutput .= "<div class=\"upload_error\">";
@@ -194,9 +194,15 @@ if (!class_exists("npuGalleryUpload")) {
 			} else {
 				$npu_selected_user_role = get_option('npu_user_role_select');
 				if (current_user_can('level_'. $npu_selected_user_role . '') || get_option('npu_user_role_select') == 99) {
+
+					$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_before_form', '', $this );
+
 					$strOutput .= "<div id=\"uploadimage\">";
 					$strOutput .= "\n\t<form name=\"uploadimage\" id=\"uploadimage_form\" method=\"POST\" enctype=\"multipart/form-data\" accept-charset=\"utf-8\" >";
-			   		$strOutput .= wp_nonce_field('ngg_addgallery', '_wpnonce', true , false);
+					$strOutput .= wp_nonce_field('ngg_addgallery', '_wpnonce', true , false);
+
+					$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_pre_input', '', $this );
+
 					$strOutput .= "\n\t<div class=\"uploader\">";
 					$strOutput .= "\n\t<input type=\"file\" name=\"imagefiles\" id=\"imagefiles\"/>";
 					$strOutput .= "\n</div>";
@@ -216,6 +222,9 @@ if (!class_exists("npuGalleryUpload")) {
 						$strOutput .= "<br />";
 						$strOutput .= "\n\t<input type=\"text\" name=\"imagedescription\" id=\"imagedescription\"/>";
 					}
+
+					$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_before_submit', '', $this );
+
 			   	 	$strOutput .= "\n\t<div class=\"submit\"><br />";
 					if(get_option('npu_upload_button')) {
 						$strOutput .= "\n\t\t<input class=\"button-primary\" type=\"submit\" name=\"uploadimage\" id=\"uploadimage_btn\" ";
@@ -226,9 +235,14 @@ if (!class_exists("npuGalleryUpload")) {
 					$strOutput .= "\n\t\t</div>";
 					$strOutput .= "\n</form>";
 					$strOutput .= "\n</div>";
+
+					$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_after_form', '', $this );
 				}
 			}
-			if ($echo) {
+
+			$strOutput = apply_filters( 'npu_gallery_upload_display_uploader', $strOutput, $gal_id, $strDetailsPage, $blnShowAltText, $echo );
+
+			if ( $echo ) {
 	   			echo $strOutput;
 			} else {
 				return $strOutput;
@@ -475,19 +489,23 @@ if (!class_exists("npuGalleryUpload")) {
 					}
 				}
 			}
+
+			do_action( 'npu_gallery_upload_update_details', $this );
 		}
 
 		// Function: Shortcode
-		public function shortcode_show_uploader($atts) {
-			global $wpdb;
-			$default_gallery = get_option('npu_default_gallery');
-			extract(shortcode_atts(array(
-				'id' => $default_gallery,
+		public function shortcode_show_uploader( $atts ) {
+
+			$default_args = apply_filters( 'npu_gallery_upload_shortcode_atts', array(
+				'id'       => get_option( 'npu_default_gallery' ),
 				'template' => ''
-			), $atts));
+			), $this );
+
+			extract( shortcode_atts( $default_args, $atts ) );
+
 			$this->handleUpload();
-			$out = $this->display_uploader($id, false, true, false);
-			return $out;
+
+			return $this->display_uploader( $id, false, true, false );
 		}
 
 		// Function: Send Email Notice

@@ -26,10 +26,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 // If NextGEN Gallery doesn't exist, or it's not active...
-if ( ! class_exists('nggLoader') || ! in_array( 'nextgen-gallery/nggallery.php', get_option('active_plugins') ) ) {
+if ( ! class_exists( 'nggLoader' ) ) {
 
 	// Display Error Message
-	add_action( 'admin_notices', 'npu_error_message');
+	add_action( 'admin_notices', 'npu_error_message' );
+
 	function npu_error_message() {
 		// Include thickbox support
 		add_thickbox();
@@ -82,7 +83,7 @@ function npu_link_love() { echo '<p><a href="http://wordpress.org/extend/plugins
 // Register our settings page as a submenu item of the NextGEN menu item
 add_action('admin_menu', 'npu_plugin_menu');
 function npu_plugin_menu() {
-	add_submenu_page( 'nextgen-gallery', 'NextGEN Public Uploader', 'Public Uploader', '8', 'nextgen-public-uploader', 'npu_plugin_options_page' );
+	add_submenu_page( 'nextgen-gallery', 'NextGEN Public Uploader', 'Public Uploader', 'manage_options', 'nextgen-public-uploader', 'npu_plugin_options_page' );
 	add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'filter_plugin_actions' );
 }
 
