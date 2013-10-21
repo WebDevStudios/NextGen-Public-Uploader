@@ -458,13 +458,13 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			global $wpdb;
 			$arrUpdateFields = array();
 			if (isset($_POST['imagedescription']) && !empty($_POST['imagedescription'])) {
-				$this->strDescription = $wpdb->escape($_POST['imagedescription']);
+				$this->strDescription = esc_sql( $_POST['imagedescription'] );
 				$arrUpdateFields[] = "description = '$this->strDescription'";
 			} else {
 				return;
 			}
 			if (isset ($_POST['alttext']) && !empty($_POST['alttext'])) {
-				$this->strTitle = $wpdb->escape($_POST['alttext']);
+				$this->strTitle = esc_sql( $_POST['alttext'] );
 				$arrUpdateFields[] = "alttext = '$this->strTitle'";
 			}
 			if (isset ($_POST['tags']) && !empty($_POST['tags'])) {
