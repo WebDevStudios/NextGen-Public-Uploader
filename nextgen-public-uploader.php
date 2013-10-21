@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 // If NextGEN Gallery doesn't exist, or it's not active...
-if ( ! class_exists('nggLoader') || ! in_array( 'nextgen-gallery/nggallery.php', get_option('active_plugins') ) ) {
+if ( ! class_exists('nggLoader') ) {
 
 	// Display Error Message
 	add_action( 'admin_notices', 'npu_error_message');
