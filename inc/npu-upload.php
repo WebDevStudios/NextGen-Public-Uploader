@@ -476,7 +476,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			} else {
 				$npu_exclude_id = 1;
 			}
-				$strUpdateFields = implode(", ", $arrUpdateFields);
+				$strUpdateFields = implode( ", ", $arrUpdateFields );
 				$pictures = $this->arrImageIds;
 				if ( count( $pictures ) > 0) {
 					foreach ( (array) $pictures as $pid ) {
