@@ -227,7 +227,9 @@ if ( ! current_user_can( 'manage_options' ) )
 
 		<h3><?php _e('Shortcode Examples', 'ngg-public-uploader') ?></h3>
 		<p><?php printf( __( 'To insert the public uploader into any content area, use %s or %s, where %s is the ID of the corresponding gallery.' ), '<code>[ngg_uploader]</code>', '<code>[ngg_uploader id=1]</code>', '<strong>1</strong>' ); ?></p>
-
+		<php
+			do_action( 'npu_plugin_options_page_before_form' );
+		?>
 		<form action="options.php" method="post">
 
 			<?php
