@@ -478,8 +478,8 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			}
 				$strUpdateFields = implode(", ", $arrUpdateFields);
 				$pictures = $this->arrImageIds;
-				if (count($pictures) > 0) {
-					foreach( $pictures as $pid ) {
+				if ( count( $pictures ) > 0) {
+					foreach ( (array) $pictures as $pid ) {
 						$strQuery = "UPDATE $wpdb->nggpictures SET ";
 						$strQuery .= $strUpdateFields. ", exclude = $npu_exclude_id WHERE pid = $pid";
 						$wpdb->query($strQuery);
