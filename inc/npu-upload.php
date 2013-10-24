@@ -368,17 +368,17 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 					$this->arrErrorMsg[] = "Upload failed!";
 					}
 				}
-				if (count($this->arrErrorMsg) > 0 && (is_array($this->arrImageIds) &&count($this->arrImageIds) > 0)) {
+				if (count($this->arrErrorMsg) > 0 && (is_array($this->arrImageIds) && count($this->arrImageIds) > 0)) {
 					$gal_id = $_POST['galleryselect'];
 					foreach ($this->arrImageIds as $intImageId) {
 						$filename = $wpdb->get_var("SELECT filename FROM $wpdb->nggpictures WHERE pid = '$intImageId' ");
 						if ($filename) {
-							$gallerypath = $wpdb->get_var("SELECT path FROM $wpdb->nggallery WHERE gid = '$gal_id' ");
+							$gallerypath = $wpdb->get_var( $wpdb->prepare( "SELECT path FROM $wpdb->nggallery WHERE gid = %d", $gal_id ) );
 							if ($gallerypath){
 								@unlink(WINABSPATH . $gallerypath . '/thumbs/thumbs_' .$filename);
 								@unlink(WINABSPATH . $gallerypath . '/' . $filename);
 							}
-							$delete_pic = $wpdb->query("DELETE FROM $wpdb->nggpictures WHERE pid = $intImageId");
+							$delete_pic = $wpdb->delete( $wpdb->nggpictures, array( 'pid' => $intImageId ), array( '%d' ) );
 						}
 					}
 				}
@@ -437,16 +437,18 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 					}
 				}
 				if (count($this->arrErrorMsg_widg) > 0 && (is_array($this->arrImageIds) &&count($this->arrImageIds) > 0)) {
+
 					$gal_id = $_POST['galleryselect'];
+
 					foreach ($this->arrImageIds as $intImageId) {
 						$filename = $wpdb->get_var("SELECT filename FROM $wpdb->nggpictures WHERE pid = '$intImageId' ");
 						if ($filename) {
-							$gallerypath = $wpdb->get_var("SELECT path FROM $wpdb->nggallery WHERE gid = '$gal_id' ");
+							$gallerypath = $wpdb->get_var( $wpdb->prepare( "SELECT path FROM $wpdb->nggallery WHERE gid = %d", $gal_id ) );
 							if ($gallerypath){
 								@unlink(WINABSPATH . $gallerypath . '/thumbs/thumbs_' .$filename);
 								@unlink(WINABSPATH . $gallerypath . '/' . $filename);
 							}
-							$delete_pic = $wpdb->query("DELETE FROM $wpdb->nggpictures WHERE pid = $intImageId");
+							$delete_pic = $wpdb->delete( $wpdb->nggpictures, array( 'pid' => $intImageId ), array( '%d' ) );
 						}
 					}
 				}
@@ -476,10 +478,10 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			} else {
 				$npu_exclude_id = 1;
 			}
-				$strUpdateFields = implode(", ", $arrUpdateFields);
+				$strUpdateFields = implode( ", ", $arrUpdateFields );
 				$pictures = $this->arrImageIds;
-				if (count($pictures) > 0) {
-					foreach( $pictures as $pid ) {
+				if ( count( $pictures ) > 0) {
+					foreach ( (array) $pictures as $pid ) {
 						$strQuery = "UPDATE $wpdb->nggpictures SET ";
 						$strQuery .= $strUpdateFields. ", exclude = $npu_exclude_id WHERE pid = $pid";
 						$wpdb->query($strQuery);
@@ -512,8 +514,8 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 
 			if ( get_option( 'npu_notification_email' ) ) {
 
-				$to      = apply_filters( 'npu_gallery_upload_send_email_to', get_option( 'npu_notification_email' ), $this );
-				$subject = apply_filters( 'npu_gallery_upload_send_email_subject', "New Image Pending Review - NextGEN Public Uploader", $this );
+				$to      = apply_filters( 'npu_gallery_upload_send_email_to'     , get_option( 'npu_notification_email' )                         , $this );
+				$subject = apply_filters( 'npu_gallery_upload_send_email_subject', "New Image Pending Review - NextGEN Public Uploader"           , $this );
 				$message = apply_filters( 'npu_gallery_upload_send_email_message', "A new image has been submitted and is waiting to be reviewed.", $this );
 
 				wp_mail( $to, $subject, $message );
