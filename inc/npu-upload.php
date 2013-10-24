@@ -4,9 +4,8 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 
 	// Public Variables
 	class npuGalleryUpload {
+
 		public $arrImageIds          = array();
-		public $strGalleryPath       = '';
-		public $blnRedirectPage      = false;
 		public $arrUploadedThumbUrls = array();
 		public $arrUploadedImageUrls = array();
 		public $arrErrorMsg          = array();
@@ -15,10 +14,13 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 		public $arrImageMsg_widg     = array();
 		public $arrImageNames        = array();
 		public $arrImageMeta         = array();
+		public $arrShortcodeArgs     = array();
 		public $strTitle             = '';
 		public $strDescription       = '';
 		public $strKeywords          = '';
 		public $strTimeStamp         = '';
+		public $strGalleryPath       = '';
+		public $blnRedirectPage      = false;
 
 		// Function: Constructors
 		public function __construct() {
