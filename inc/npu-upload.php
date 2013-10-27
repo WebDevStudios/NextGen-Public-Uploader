@@ -551,5 +551,3 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 
 // Create Uploader
 $npuUpload = new npuGalleryUpload();
-
-?>
