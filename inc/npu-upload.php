@@ -213,16 +213,8 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 						if ($blnShowAltText) {}
 						$strOutput .= "\n\t</div>";
 					}
-					if(get_option('npu_image_description_select') == 'Enabled') {
-						$strOutput .= "<br />";
-						if(get_option('npu_description_text')) {
-							$strOutput .= get_option('npu_description_text');
-						} else {
-						$strOutput .= __('Description:', 'ngg-public-uploader');
-						}
-						$strOutput .= "<br />";
-						$strOutput .= "\n\t<input type=\"text\" name=\"imagedescription\" id=\"imagedescription\"/>";
-					}
+
+					$strOutput .= $this->maybe_display_image_description();
 
 					$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_before_submit', '', $this, 'shortcode' );
 
@@ -248,6 +240,21 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			} else {
 				return $strOutput;
 			}
+		}
+
+		public function maybe_display_image_description( $i = false ) {
+
+			$strOutput = '';
+
+			if ( 'Enabled' == get_option( 'npu_image_description_select' ) ) {
+				$strOutput .= '<br />' . get_option( 'npu_description_text',  __( 'Description:', 'ngg-public-uploader' ) ) . '<br />';
+
+				$name = is_numeric( $i ) ? 'imagedescription_' . $i : 'imagedescription';
+
+				$strOutput .= "\n\t<input type=\"text\" name=\"" . esc_attr( $name ) . "\" id=\"" . esc_attr( $name ) . "\"/>";
+			}
+
+			return $strOutput;
 		}
 
 		// Function: Widget Form
