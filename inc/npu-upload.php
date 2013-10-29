@@ -167,6 +167,29 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			wp_enqueue_script( 'ngg-progressbar' );
 		}
 
+		/**
+		 * Abstracts the image upload field.
+		 * Used in the uploader, uploader widget, and Gravity Forms custom input field.
+		 *
+		 * @param  integer $gal_id     Gallery ID for NextGen Gallery.
+		 * @param  string  $context    Context.
+		 *
+		 * @return string  $strOutput  HTML output for image upload input.
+		 */
+		public function display_image_upload_input( $gal_id = 0, $context = 'shortcode' ) {
+
+			$strOutput .= wp_nonce_field('ngg_addgallery', '_wpnonce', true , false);
+
+			$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_pre_input', '', $this, $context );
+
+			$strOutput .= "\n\t<div class=\"uploader\">";
+			$strOutput .= "\n\t<input type=\"file\" name=\"imagefiles\" id=\"imagefiles\"/>";
+			$strOutput .= "\n</div>";
+			$strOutput .= "\n<input type=\"hidden\" name=\"galleryselect\" value=\"{$gal_id}\">";
+
+			return $strOutput;
+		}
+
 		// Function: Shortcode Form
 		public function display_uploader( $gal_id, $strDetailsPage = false, $blnShowAltText = true, $echo = true ) {
 			$strOutput = "";
@@ -200,14 +223,9 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 
 					$strOutput .= "<div id=\"uploadimage\">";
 					$strOutput .= "\n\t<form name=\"uploadimage\" id=\"uploadimage_form\" method=\"POST\" enctype=\"multipart/form-data\" accept-charset=\"utf-8\" >";
-					$strOutput .= wp_nonce_field('ngg_addgallery', '_wpnonce', true , false);
 
-					$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_pre_input', '', $this, 'shortcode' );
+					$strOutput .= $this->display_image_upload_input( $gal_id );
 
-					$strOutput .= "\n\t<div class=\"uploader\">";
-					$strOutput .= "\n\t<input type=\"file\" name=\"imagefiles\" id=\"imagefiles\"/>";
-					$strOutput .= "\n</div>";
-					$strOutput .= "\n<input type=\"hidden\" name=\"galleryselect\" value=\"{$gal_id}\">";
 					if (!$strDetailsPage) {
 						$strOutput .= "\n\t<div class=\"image_details_textfield\">";
 						if ($blnShowAltText) {}
@@ -291,19 +309,14 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 
 					$strOutput .= "<div id=\"uploadimage\">";
 					$strOutput .= "\n\t<form name=\"uploadimage_widget\" id=\"uploadimage_form_widget\" method=\"POST\" enctype=\"multipart/form-data\" accept-charset=\"utf-8\" >";
-			   		$strOutput .= wp_nonce_field('ngg_addgallery', '_wpnonce', true , false);
 
-					$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_pre_input', '', $this, 'widget' );
+					$strOutput .= $this->display_image_upload_input( $gal_id, 'widget' );
 
-			   		$strOutput .= "\n\t<div class=\"uploader\">";
-					$strOutput .= "\n\t<input type=\"file\" name=\"imagefiles\" id=\"imagefiles\"/>";
-					$strOutput .= "\n</div>";
-					$strOutput .= "\n<input type=\"hidden\" name=\"galleryselect\" value=\"{$gal_id}\">";
 					if (!$strDetailsPage) {
 						$strOutput .= "\n\t<div class=\"image_details_textfield\">";
 						if ($blnShowAltText) {}
 						$strOutput .= "\n\t</div>";
-			   		}
+					}
 					if(get_option('npu_image_description_select') == 'Enabled') {
 						$strOutput .= "<br />";
 						if(get_option('npu_description_text')) {
