@@ -181,7 +181,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			$strOutput = wp_nonce_field( 'ngg_addgallery', '_wpnonce', true , false );
 			$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_pre_input', '', $this, $context );
 
-			$disabled   = $disable ? 'disabled="disabled"' : '';
+			$disabled   = $disable ? " disabled='disabled'" : '';
 
 			$strOutput .= "\n\t<div class=\"uploader\">";
 			$strOutput .= "\n\t<input type=\"file\" name=\"imagefiles\" id=\"imagefiles\"{$disabled}/>";
