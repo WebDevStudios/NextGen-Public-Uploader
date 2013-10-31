@@ -178,13 +178,13 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 		 */
 		public function display_image_upload_input( $gal_id = 0, $context = 'shortcode', $disable = false ) {
 
-			$strOutput .= wp_nonce_field( 'ngg_addgallery', '_wpnonce', true , false );
+			$strOutput = wp_nonce_field( 'ngg_addgallery', '_wpnonce', true , false );
 			$strOutput .= apply_filters( 'npu_gallery_upload_display_uploader_pre_input', '', $this, $context );
 
-			$disabled   = $disable ? 'disabled="disabled"' : '';
+			$disabled   = $disable ? " disabled='disabled'" : '';
 
 			$strOutput .= "\n\t<div class=\"uploader\">";
-			$strOutput .= "\n\t<input type=\"file\" name=\"imagefiles\" id=\"imagefiles\"{$disabled}/>";
+			$strOutput .= "\n\t<input type=\"file\" name=\"imagefiles\" id=\"imagefiles\"{$disabled} />";
 			$strOutput .= "\n</div>";
 			$strOutput .= "\n<input type=\"hidden\" name=\"galleryselect\" value=\"{$gal_id}\">";
 
