@@ -184,7 +184,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			$disabled   = $disable ? " disabled='disabled'" : '';
 
 			$strOutput .= "\n\t<div class=\"uploader\">";
-			$strOutput .= "\n\t<input type=\"file\" name=\"imagefiles\" id=\"imagefiles\"{$disabled}/>";
+			$strOutput .= "\n\t<input type=\"file\" name=\"imagefiles\" id=\"imagefiles\"{$disabled} />";
 			$strOutput .= "\n</div>";
 			$strOutput .= "\n<input type=\"hidden\" name=\"galleryselect\" value=\"{$gal_id}\">";
 
