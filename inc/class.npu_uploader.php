@@ -4,16 +4,17 @@
 require_once ( NGGALLERY_ABSPATH . '/admin/functions.php' );
 
 class UploaderNggAdmin extends nggAdmin {
+
 	// Public Variables
 	public $arrImageIds      = array();
-	public $strGalleryPath   = '';
 	public $arrImageNames    = array();
-	public $strFileName      = '';
-	public $blnRedirectPage  = false;
 	public $arrThumbReturn   = array();
 	public $arrEXIF          = array();
 	public $arrErrorMsg      = array();
 	public $arrErrorMsg_widg = array();
+	public $strFileName      = '';
+	public $strGalleryPath   = '';
+	public $blnRedirectPage  = false;
 
 	function upload_images() {
 		global $wpdb;
@@ -25,14 +26,14 @@ class UploaderNggAdmin extends nggAdmin {
 			if(get_option('npu_default_gallery')) {
 				$galleryID = get_option('npu_default_gallery');
 			} else {
-				nggGallery::show_error(__('No gallery selected.','nggallery'));
+				self::show_error(__('No gallery selected.','nggallery'));
 				return;
 			}
 		}
 		// Get Gallery Path
 		$gallerypath = $wpdb->get_var("SELECT path FROM $wpdb->nggallery WHERE gid = '$galleryID' ");
 		if (!$gallerypath){
-			nggGallery::show_error(__('Failure in database, no gallery path set.','nggallery'));
+			self::show_error(__('Failure in database, no gallery path set.','nggallery'));
 			return;
 		}
 		// Read Image List
@@ -52,7 +53,7 @@ class UploaderNggAdmin extends nggAdmin {
 				// Allowed Extensions
 				$ext = array('jpeg', 'jpg', 'png', 'gif');
 				if ( !in_array($filepart['extension'], $ext) || !@getimagesize($temp_file) ){
-					nggGallery::show_error('<strong>'.$_FILES[$key]['name'].' </strong>'.__('is not a valid file.','nggallery'));
+					self::show_error('<strong>'.$_FILES[$key]['name'].' </strong>'.__('is not a valid file.','nggallery'));
 					continue;
 				}
 				// Check If File Exists
@@ -64,17 +65,17 @@ class UploaderNggAdmin extends nggAdmin {
 				// Check Folder Permissions
 				if (!is_writeable(WINABSPATH.$gallerypath)) {
 					$message = sprintf(__('Unable to write to directory %s. Is this directory writable by the server?', 'nggallery'), WINABSPATH.$gallerypath);
-					nggGallery::show_error($message);
+					self::show_error($message);
 					return;
 				}
 				// Save Temporary File
 				if (!@move_uploaded_file($_FILES[$key]['tmp_name'], $dest_file)){
-					nggGallery::show_error(__('Error, the file could not moved to : ','nggallery').$dest_file);
+					self::show_error(__('Error, the file could not moved to : ','nggallery').$dest_file);
 					$this->check_safemode(WINABSPATH.$gallerypath);
 					continue;
 				}
 				if (!$this->chmod ($dest_file)) {
-					nggGallery::show_error(__('Error, the file permissions could not set.','nggallery'));
+					self::show_error(__('Error, the file permissions could not set.','nggallery'));
 					continue;
 				}
 				// Add to Image and Dir List
@@ -114,14 +115,14 @@ class UploaderNggAdmin extends nggAdmin {
 			if(get_option('npu_default_gallery')) {
 				$galleryID = get_option('npu_default_gallery');
 			} else {
-				nggGallery::show_error(__('No gallery selected.','nggallery'));
+				self::show_error(__('No gallery selected.','nggallery'));
 				return;
 			}
 		}
 		// Get Gallery Path
 		$gallerypath = $wpdb->get_var("SELECT path FROM $wpdb->nggallery WHERE gid = '$galleryID' ");
 		if (!$gallerypath){
-			nggGallery::show_error(__('Failure in database, no gallery path set.','nggallery'));
+			self::show_error(__('Failure in database, no gallery path set.','nggallery'));
 			return;
 		}
 		// Read Image List
@@ -136,7 +137,7 @@ class UploaderNggAdmin extends nggAdmin {
 				// Allowed Extensions
 				$ext = array('jpeg', 'jpg', 'png', 'gif');
 				if ( !in_array($filepart['extension'], $ext) || !@getimagesize($temp_file) ){
-					nggGallery::show_error('<strong>'.$_FILES[$key]['name'].' </strong>'.__('is not a valid file.','nggallery'));
+					self::show_error('<strong>'.$_FILES[$key]['name'].' </strong>'.__('is not a valid file.','nggallery'));
 					continue;
 				}
 				// Check If File Exists
@@ -148,17 +149,17 @@ class UploaderNggAdmin extends nggAdmin {
 				// Check Folder Permissions
 				if (!is_writeable(WINABSPATH.$gallerypath)) {
 					$message = sprintf(__('Unable to write to directory %s. Is this directory writable by the server?', 'nggallery'), WINABSPATH.$gallerypath);
-					nggGallery::show_error($message);
+					self::show_error($message);
 					return;
 				}
 				// Save Temporary File
 				if (!@move_uploaded_file($_FILES[$key]['tmp_name'], $dest_file)){
-					nggGallery::show_error(__('Error, the file could not moved to : ','nggallery').$dest_file);
+					self::show_error(__('Error, the file could not moved to : ','nggallery').$dest_file);
 					$this->check_safemode(WINABSPATH.$gallerypath);
 					continue;
 				}
 				if (!$this->chmod ($dest_file)) {
-					nggGallery::show_error(__('Error, the file permissions could not set.','nggallery'));
+					self::show_error(__('Error, the file permissions could not set.','nggallery'));
 					continue;
 				}
 				// Add to Image and Dir List
@@ -189,7 +190,6 @@ class UploaderNggAdmin extends nggAdmin {
 		}
 		return;
 	} // End Function
-
 
 	public static function show_error( $msg ) {
 		if ( is_user_logged_in() && apply_filters( 'uploader_ngg_admin_show_error', true, $this ) ) {
