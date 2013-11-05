@@ -3,7 +3,7 @@
 Plugin Name: NextGEN Public Uploader
 Plugin URI: http://webdevstudios.com/plugin/nextgen-public-uploader/
 Description: NextGEN Public Uploader is an extension to NextGEN Gallery which allows frontend image uploads for your users.
-Version: 1.7.1
+Version: 1.8
 Author: WebDevStudios
 Author URI: http://webdevstudios.com
 
