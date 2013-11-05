@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: nextgen public uploader,nextgen uploader,nextgen gallery,nextgen,gallery,image,upload,photo,picture,visitor,public,uploader
 Requires at least: 3.4
 Tested up to: 3.7
-Stable tag: 1.7.1
+Stable tag: 1.8
 
 NextGEN Public Uploader is an extension to NextGEN Gallery which allows frontend image uploads for your users.
 
