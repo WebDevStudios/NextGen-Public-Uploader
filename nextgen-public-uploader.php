@@ -8,7 +8,7 @@ Author: WebDevStudios
 Author URI: http://webdevstudios.com
 Text Domain: nextgen-public-uploader
 
-Copyright 2009-2012 WebDevStudios  (email : contact@webdevstudios.com)
+Copyright 2009-2013 WebDevStudios  (email: contact@webdevstudios.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
