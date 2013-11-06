@@ -34,9 +34,9 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			if ( !$options ) {
 				$options = array();
 			}
-			$widget_ops = array( 'classname' => 'npu_gallery_upload', 'description' => __( 'Upload images to a NextGEN Gallery', 'nggallery' ) );
+			$widget_ops = array( 'classname' => 'npu_gallery_upload', 'description' => __( 'Upload images to a NextGEN Gallery', 'nextgen-public-uploader' ) );
 			$control_ops = array( 'width' => 250, 'height' => 200, 'id_base' => 'npu-gallery-upload' );
-			$name = __( 'NextGEN Uploader', 'nggallery' );
+			$name = __( 'NextGEN Uploader', 'nextgen-public-uploader' );
 			$id = false;
 			foreach (array_keys($options) as $o) {
 				if (!isset($options[$o]['title'])) {
@@ -104,14 +104,14 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			$gallerylist = $nggdb->find_all_galleries('gid', 'DESC');
 			?>
 			<p>
-				<label for="npu_upload-title-<?php echo $number; ?>"><?php _e( 'Title:', 'nggallery' ); ?>
+				<label for="npu_upload-title-<?php echo $number; ?>"><?php _e( 'Title:', 'nextgen-public-uploader' ); ?>
 					<input id="npu_upload-title-<?php echo $number; ?>" name="widget_npu_upload[<?php echo $number; ?>][title]" type="text" class="widefat" value="<?php echo $title; ?>" />
 				</label>
 			</p>
 			<p>
-				<label for="npu_upload-id-<?php echo $number; ?>"><?php _e('Upload to :','nggallery'); ?>
+				<label for="npu_upload-id-<?php echo $number; ?>"><?php _e('Upload to :','nextgen-public-uploader'); ?>
 					<select id="npu_upload-id-<?php echo $number; ?>" name="widget_npu_upload[<?php echo $number; ?>][gal_id]" >
-						<option value="0" ><?php _e( 'Choose gallery', 'nggallery' ) ?></option>
+						<option value="0" ><?php _e( 'Choose gallery', 'nextgen-public-uploader' ) ?></option>
 						<?php
 							foreach( $gallerylist as $gallery ) {
 								$name = ( empty($gallery->title) ) ? $gallery->name : $gallery->title;
@@ -156,9 +156,9 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 					'operation' => '',
 					'nonce' => wp_create_nonce( 'ngg-ajax' ),
 					'ids' => '',
-					'permission' => __( 'You do not have the correct permission', 'nggallery' ),
-					'error' => __( 'Unexpected Error', 'nggallery' ),
-					'failure' => __( 'Upload Failed', 'nggallery' )
+					'permission' => __( 'You do not have the correct permission', 'nextgen-public-uploader' ),
+					'error' => __( 'Unexpected Error', 'nextgen-public-uploader' ),
+					'failure' => __( 'Upload Failed', 'nextgen-public-uploader' )
 				)
 			);
 			wp_register_script( 'ngg-progressbar', NGGALLERY_URLPATH . 'admin/js/ngg.progressbar.js', array( 'jquery' ), '1.0.0' );
@@ -216,7 +216,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 				if( !empty( get_option( 'npu_notlogged' ) ) ) {
 					$strOutput .= get_option( 'npu_notlogged' );
 				} else {
-					$strOutput .= __( 'You must be registered and logged in to upload images.', 'nggallery' );
+					$strOutput .= __( 'You must be registered and logged in to upload images.', 'nextgen-public-uploader' );
 				}
 				$strOutput .= '</div>';
 			} else {
@@ -269,7 +269,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			$strOutput = '';
 
 			if ( 'Enabled' == get_option( 'npu_image_description_select' ) ) {
-				$strOutput .= '<br />' . get_option( 'npu_description_text',  __( 'Description:', 'ngg-public-uploader' ) ) . '<br />';
+				$strOutput .= '<br />' . get_option( 'npu_description_text',  __( 'Description:', 'nextgen-public-uploader' ) ) . '<br />';
 
 				$name = is_numeric( $i ) ? 'imagedescription_' . $i : 'imagedescription';
 
@@ -301,7 +301,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 				if(get_option('npu_notlogged')) {
 					$strOutput .= get_option('npu_notlogged');
 				} else {
-					$strOutput .= "You must be registered and logged in to upload images.";
+					$strOutput .= __( 'You must be registered and logged in to upload images.', 'nextgen-public-uploader' );
 				}
 				$strOutput .= "</div>";
 			} else {
@@ -326,7 +326,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 						if(get_option('npu_description_text')) {
 							$strOutput .= get_option('npu_description_text');
 						} else {
-							$strOutput .= __('Description:', 'ngg-public-uploader');
+							$strOutput .= __( 'Description:', 'nextgen-public-uploader' );
 						}
 						$strOutput .= "<br />";
 						$strOutput .= "\n\t<input type=\"text\" name=\"imagedescription\" id=\"imagedescription\"/>";
@@ -381,7 +381,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 						if ( get_option( 'npu_upload_success' ) ) {
 							$this->arrImageMsg[] = get_option( 'npu_upload_success' );
 						} else {
-							$this->arrImageMsg[] = __( 'Thank you! Your image has been submitted and is pending review.', 'nggallery' );
+							$this->arrImageMsg[] = __( 'Thank you! Your image has been submitted and is pending review.', 'nextgen-public-uploader' );
 						}
 						$this->sendEmail();
 					}
@@ -399,7 +399,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 						if ( get_option( 'npu_no_file' ) ) {
 							$this->arrErrorMsg[] = get_option( 'npu_no_file' );
 						} else {
-							$this->arrErrorMsg[] = __( 'You must select a file to upload', 'nggallery' );
+							$this->arrErrorMsg[] = __( 'You must select a file to upload', 'nextgen-public-uploader' );
 						}
 					}
 					$this->update_details();
@@ -407,7 +407,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 					if ( get_option( 'npu_upload_failed' ) ) {
 						$this->arrErrorMsg[] = get_option( 'npu_upload_failed' );
 					} else {
-						$this->arrErrorMsg[] = __( 'Upload failed!', 'nggallery' );
+						$this->arrErrorMsg[] = __( 'Upload failed!', 'nextgen-public-uploader' );
 					}
 				}
 				if ( count( $this->arrErrorMsg ) > 0 && ( is_array( $this->arrImageIds ) && count( $this->arrImageIds ) > 0 ) ) {
@@ -450,7 +450,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 						if( get_option( 'npu_upload_success' ) ) {
 							$this->arrImageMsg_widg[] = get_option( 'npu_upload_success' );
 						} else {
-							$this->arrImageMsg_widg[] = __( 'Thank you! Your image has been submitted and is pending review.', 'nggallery' );
+							$this->arrImageMsg_widg[] = __( 'Thank you! Your image has been submitted and is pending review.', 'nextgen-public-uploader' );
 						}
 						$this->sendEmail();
 					}
@@ -467,7 +467,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 						if( get_option( 'npu_no_file' ) ) {
 							$this->arrErrorMsg_widg[] = get_option( 'npu_no_file' );
 						} else {
-							$this->arrErrorMsg_widg[] = __( 'You must select a file to upload', 'nggallery' );
+							$this->arrErrorMsg_widg[] = __( 'You must select a file to upload', 'nextgen-public-uploader' );
 						}
 					}
 					$this->update_details();
@@ -475,7 +475,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 					if ( get_option( 'npu_upload_failed' ) ) {
 					   $this->arrErrorMsg_widg[] = get_option( 'npu_upload_failed' );
 					} else {
-					   $this->arrErrorMsg_widg[] = __( 'Upload failed!', 'nggallery' );
+					   $this->arrErrorMsg_widg[] = __( 'Upload failed!', 'nextgen-public-uploader' );
 					}
 				}
 				if ( count( $this->arrErrorMsg_widg ) > 0 && ( is_array( $this->arrImageIds ) && count( $this->arrImageIds ) > 0 ) ) {
@@ -558,8 +558,8 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			if ( get_option( 'npu_notification_email' ) ) {
 
 				$to      = apply_filters( 'npu_gallery_upload_send_email_to'     , get_option( 'npu_notification_email' ), $this );
-				$subject = apply_filters( 'npu_gallery_upload_send_email_subject', __( 'New Image Pending Review - NextGEN Public Uploader', 'nggallery' ), $this );
-				$message = apply_filters( 'npu_gallery_upload_send_email_message', __( 'A new image has been submitted and is waiting to be reviewed.', 'nggallery' ), $this );
+				$subject = apply_filters( 'npu_gallery_upload_send_email_subject', __( 'New Image Pending Review - NextGEN Public Uploader', 'nextgen-public-uploader' ), $this );
+				$message = apply_filters( 'npu_gallery_upload_send_email_message', __( 'A new image has been submitted and is waiting to be reviewed.', 'nextgen-public-uploader' ), $this );
 
 				wp_mail( $to, $subject, $message );
 			}
