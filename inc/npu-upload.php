@@ -578,3 +578,78 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 
 // Create Uploader
 $npuUpload = new npuGalleryUpload();
+
+/*
+Register our widget
+ */
+function ngg_public_uploader() {
+	register_widget( "NextGenPublicUploader" );
+}
+add_action( 'widgets_init', 'ngg_public_uploader' );
+
+class NextGenPublicUploader extends WP_Widget {
+
+	function __construct() {
+		$widget_ops = array(
+            'description'   => __( 'Upload images to a NextGEN Gallery', 'nextgen-public-uploader' ),
+            'classname'     => 'npu_gallery_upload',
+		);
+		parent::__construct( false, _x( 'NextGEN Uploader', 'widget name', 'nextgen-public-uploader' ), $widget_ops );
+	}
+
+	function widget( $args, $instance ) {
+		$npu_uploader = new npuGalleryUpload();
+
+		extract( $args );
+
+		$title = esc_html( $instance['title'] );
+		$gal_id   = esc_attr( $instance['gal_id'] );
+
+		echo $before_widget;
+
+		if ( !empty( $title ) ) {
+			echo $before_title . $title . $after_title;
+		}
+		$npu_uploader->handleUpload_widget();
+
+		$npu_uploader->display_uploader_widget( $gal_id, false ); //leave as method in separate class for now.
+
+		echo $after_widget;
+	}
+
+	function form( $instance ) {
+
+		// Set Defaults
+		$instance = wp_parse_args( (array) $instance, array( 'gal_id' => '0' ) );
+
+		include_once ( NGGALLERY_ABSPATH . "lib/ngg-db.php" );
+
+		$nggdb = new nggdb();
+		$gallerylist = $nggdb->find_all_galleries( 'gid', 'DESC' ); ?>
+
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'nextgen-public-uploader' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" /></p>
+
+		<p>
+		<label for="<?php echo $this->get_field_id( 'gal_id' ); ?>"><?php _e( 'Upload to :', 'nextgen-public-uploader' ); ?></label>
+		<select id="<?php echo $this->get_field_id( 'gal_id' ) ?>" name="<?php echo $this->get_field_name( 'gal_id' ); ?>">
+			<option value="0" ><?php _e( 'Choose gallery', 'nextgen-public-uploader' ); ?></option>
+			<?php
+			foreach( $gallerylist as $gallery ) {
+				$name = ( empty( $gallery->title ) ) ? $gallery->name : $gallery->title;
+				echo '<option ' . selected( $instance['gal_id'], $gallery->gid, false ) . ' value="' . $gallery->gid . '">ID: ' . $gallery->gid . ' &ndash; ' . $name . '</option>';
+			}
+			?>
+		</select>
+		</p>
+	<?php
+	}
+
+	function update( $new_instance, $old_instance ) {
+
+		$instance['title'] = sanitize_text_field( $new_instance['title'] );
+		$instance['gal_id'] = absint( $new_instance['gal_id'] );
+
+		return $instance;
+	}
+}
