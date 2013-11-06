@@ -1,5 +1,5 @@
 === NextGEN Public Uploader ===
-Contributors: WDS-Scott, williamsba1, rzen, webdevstudios, JustinSainton
+Contributors: WDS-Scott, williamsba1, rzen, webdevstudios, tw2113, JustinSainton
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3084056
 Tags: nextgen public uploader,nextgen uploader,nextgen gallery,nextgen,gallery,image,upload,photo,picture,visitor,public,uploader
 Requires at least: 3.4
