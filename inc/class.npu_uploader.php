@@ -192,7 +192,7 @@ class UploaderNggAdmin extends nggAdmin {
 	} // End Function
 
 	public static function show_error( $msg ) {
-		if ( is_user_logged_in() && apply_filters( 'uploader_ngg_admin_show_error', true, $this ) ) {
+		if ( is_user_logged_in() && apply_filters( 'uploader_ngg_admin_show_error', true ) ) {
 			nggGallery::show_error( $msg );
 		}
 	}
