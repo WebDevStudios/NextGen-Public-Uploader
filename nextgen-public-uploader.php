@@ -6,6 +6,7 @@ Description: NextGEN Public Uploader is an extension to NextGEN Gallery which al
 Version: 1.7.1
 Author: WebDevStudios
 Author URI: http://webdevstudios.com
+Text Domain: nextgen-public-uploader
 
 Copyright 2009-2012 WebDevStudios  (email : contact@webdevstudios.com)
 
