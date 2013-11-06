@@ -39,7 +39,13 @@ if ( ! class_exists( 'nggLoader' ) ) {
 		// Generate our error message
 		$output = '';
 		$output .= '<div id="message" class="error">';
-		$output .= '<p><strong>NextGEN Public Uploader</strong> requires NextGEN Gallery in order to work. Please deactivate NextGEN Public Uploader or activate <a href="' . admin_url( '/plugin-install.php?tab=plugin-information&plugin=nextgen-gallery&TB_iframe=true&width=600&height=550' ) . '" target="_blank" class="thickbox onclick">NextGEN Gallery</a>.</strong></p>';
+		$output .= sprintf(
+			__( '%s NextGEN Public Uploader %s requires NextGEN Gallery in order to work. Please deactivate NextGEN Public Uploader or activate %s NextGEN Gallery %s', 'nextgen-public-uploader' ),
+			'<p><strong>',
+			'</strong>',
+			'<a href="' . admin_url( '/plugin-install.php?tab=plugin-information&plugin=nextgen-gallery&TB_iframe=true&width=600&height=550' ) . '" target="_blank" class="thickbox onclick">',
+			'</a>.</strong></p>'
+		);
 		$output .= '</div>';
 		echo $output;
 
