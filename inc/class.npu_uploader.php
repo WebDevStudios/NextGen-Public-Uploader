@@ -26,14 +26,14 @@ class UploaderNggAdmin extends nggAdmin {
 			if( get_option( 'npu_default_gallery' ) ) {
 				$galleryID = get_option( 'npu_default_gallery' );
 			} else {
-				self::show_error( __( 'No gallery selected.', 'nggallery' ) );
+				self::show_error( __( 'No gallery selected.', 'nextgen-public-uploader' ) );
 				return;
 			}
 		}
 		// Get Gallery Path
 		$gallerypath = $wpdb->get_var( "SELECT path FROM $wpdb->nggallery WHERE gid = '$galleryID' " );
 		if ( ! $gallerypath ) {
-			self::show_error( __( 'Failure in database, no gallery path set.', 'nggallery' ) );
+			self::show_error( __( 'Failure in database, no gallery path set.', 'nextgen-public-uploader' ) );
 			return;
 		}
 		// Read Image List
@@ -53,7 +53,7 @@ class UploaderNggAdmin extends nggAdmin {
 				// Allowed Extensions
 				$ext = array( 'jpeg', 'jpg', 'png', 'gif' );
 				if ( !in_array( $filepart['extension'], $ext ) || !@getimagesize( $temp_file ) ) {
-					self::show_error( '<strong>' . $_FILES[$key]['name'] . '</strong>' . __( 'is not a valid file.', 'nggallery' ) );
+					self::show_error( '<strong>' . $_FILES[$key]['name'] . '</strong>' . __( 'is not a valid file.', 'nextgen-public-uploader' ) );
 					continue;
 				}
 				// Check If File Exists
@@ -64,18 +64,18 @@ class UploaderNggAdmin extends nggAdmin {
 				$dest_file = WINABSPATH . $gallerypath . '/' . $filename;
 				// Check Folder Permissions
 				if ( !is_writeable( WINABSPATH . $gallerypath ) ) {
-					$message = sprintf( __( 'Unable to write to directory %s. Is this directory writable by the server?', 'nggallery' ), WINABSPATH . $gallerypath );
+					$message = sprintf( __( 'Unable to write to directory %s. Is this directory writable by the server?', 'nextgen-public-uploader' ), WINABSPATH . $gallerypath );
 					self::show_error( $message );
 					return;
 				}
 				// Save Temporary File
 				if ( !@move_uploaded_file( $_FILES[$key]['tmp_name'], $dest_file ) ) {
-					self::show_error( __( 'Error, the file could not moved to: ', 'nggallery' ) . $dest_file );
+					self::show_error( __( 'Error, the file could not moved to: ', 'nextgen-public-uploader' ) . $dest_file );
 					$this->check_safemode( WINABSPATH.$gallerypath );
 					continue;
 				}
 				if ( ! $this->chmod( $dest_file ) ) {
-					self::show_error( __( 'Error, the file permissions could not set.', 'nggallery' ) );
+					self::show_error( __( 'Error, the file permissions could not set.', 'nextgen-public-uploader' ) );
 					continue;
 				}
 				// Add to Image and Dir List
@@ -115,14 +115,14 @@ class UploaderNggAdmin extends nggAdmin {
 			if( get_option( 'npu_default_gallery' ) ) {
 				$galleryID = get_option( 'npu_default_gallery' );
 			} else {
-				self::show_error( __( 'No gallery selected.', 'nggallery' ) );
+				self::show_error( __( 'No gallery selected.', 'nextgen-public-uploader' ) );
 				return;
 			}
 		}
 		// Get Gallery Path
 		$gallerypath = $wpdb->get_var( "SELECT path FROM $wpdb->nggallery WHERE gid = '$galleryID' " );
 		if ( ! $gallerypath ) {
-			self::show_error( __( 'Failure in database, no gallery path set.', 'nggallery' ) );
+			self::show_error( __( 'Failure in database, no gallery path set.', 'nextgen-public-uploader' ) );
 			return;
 		}
 		// Read Image List
@@ -137,7 +137,7 @@ class UploaderNggAdmin extends nggAdmin {
 				// Allowed Extensions
 				$ext = array( 'jpeg', 'jpg', 'png', 'gif' );
 				if ( !in_array( $filepart['extension'], $ext ) || !@getimagesize( $temp_file ) ){
-					self::show_error( '<strong>' . $_FILES[$key]['name'] . '</strong>' . __( 'is not a valid file.', 'nggallery' ) );
+					self::show_error( '<strong>' . $_FILES[$key]['name'] . '</strong>' . __( 'is not a valid file.', 'nextgen-public-uploader' ) );
 					continue;
 				}
 				// Check If File Exists
@@ -148,18 +148,18 @@ class UploaderNggAdmin extends nggAdmin {
 				$dest_file = WINABSPATH . $gallerypath . '/' . $filename;
 				// Check Folder Permissions
 				if ( !is_writeable( WINABSPATH . $gallerypath ) ) {
-					$message = sprintf( __( 'Unable to write to directory %s. Is this directory writable by the server?', 'nggallery' ), WINABSPATH . $gallerypath );
+					$message = sprintf( __( 'Unable to write to directory %s. Is this directory writable by the server?', 'nextgen-public-uploader' ), WINABSPATH . $gallerypath );
 					self::show_error( $message );
 					return;
 				}
 				// Save Temporary File
 				if ( ! @move_uploaded_file( $_FILES[$key]['tmp_name'], $dest_file ) ) {
-					self::show_error( __( 'Error, the file could not moved to: ', 'nggallery' ) . $dest_file );
+					self::show_error( __( 'Error, the file could not moved to: ', 'nextgen-public-uploader' ) . $dest_file );
 					$this->check_safemode( WINABSPATH . $gallerypath );
 					continue;
 				}
 				if ( ! $this->chmod( $dest_file ) ) {
-					self::show_error( __( 'Error, the file permissions could not set.', 'nggallery' ) );
+					self::show_error( __( 'Error, the file permissions could not set.', 'nextgen-public-uploader' ) );
 					continue;
 				}
 				// Add to Image and Dir List
