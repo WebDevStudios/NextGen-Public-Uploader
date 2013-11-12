@@ -71,6 +71,9 @@ If you have installed NextGEN Gallery, please make sure that it is activated.
 
 == Changelog ==
 
+= V1.8 - DATE HERE =
+* Converted widget to proper widget class extension
+
 = V1.7 - 10.5.2012 =
 * Confirmed Working: Tested with latest versions of NextGen and WordPress, everything works fine
 * Moved settings menu: The menu now righfully resides as a sub-item of Gallery
@@ -127,5 +130,8 @@ If you have installed NextGEN Gallery, please make sure that it is activated.
 NextGEN Public Uploader is distributed under an open source license called the GNU General Public License, or GPL. The text of the license is distributed with every copy of this plugin.
 
 == Upgrade Notice ==
+
+* Completely different widget registration method in version 1.8. If you use the Widget uploader, you'll probably want to re-add and re-set the gallery.
+* Translators. We switched to a new text-domain to align with the WordPress 3.7 translation changes.
 
 Before upgrading NextGEN Public Uploader please remember to backup your database and files.
