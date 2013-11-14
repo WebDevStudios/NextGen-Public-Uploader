@@ -71,8 +71,10 @@ If you have installed NextGEN Gallery, please make sure that it is activated.
 
 == Changelog ==
 
-= V1.8 - DATE HERE =
-* Converted widget to proper widget class extension
+= V1.8 - 11.14.2013 =
+* Converted widget to proper widget class extension.
+* Better translation support, including changed textdomain to match WP3.7 translation changes.
+* Translation pot file.
 
 = V1.7 - 10.5.2012 =
 * Confirmed Working: Tested with latest versions of NextGen and WordPress, everything works fine
@@ -132,6 +134,6 @@ NextGEN Public Uploader is distributed under an open source license called the G
 == Upgrade Notice ==
 
 * Completely different widget registration method in version 1.8. If you use the Widget uploader, you'll probably want to re-add and re-set the gallery.
-* Translators. We switched to a new text-domain to align with the WordPress 3.7 translation changes.
+* Translators. We switched to a new text-domain to align with the WordPress 3.7 translation changes. We also provided a pot file to use.
 
 Before upgrading NextGEN Public Uploader please remember to backup your database and files.
