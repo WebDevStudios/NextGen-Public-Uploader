@@ -7,6 +7,7 @@ Version: 1.8
 Author: WebDevStudios
 Author URI: http://webdevstudios.com
 Text Domain: nextgen-public-uploader
+Domain Path: /languages
 
 Copyright 2009-2013 WebDevStudios  (email: contact@webdevstudios.com)
 
