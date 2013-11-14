@@ -1,0 +1,330 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NextGEN Public Uploader\n"
+"POT-Creation-Date: 2013-11-14 12:59-0600\n"
+"PO-Revision-Date: 2013-11-14 12:59-0600\n"
+"Last-Translator: \n"
+"Language-Team: WebDevStudios <contact@webdevstudios.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e;_n;_x;_ex;_nx;esc_attr__;esc_attr_e;esc_attr_x;"
+"esc_html__;esc_html_e;esc_html_x\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../nextgen-public-uploader.php:43
+#, php-format
+msgid ""
+"%s NextGEN Public Uploader %s requires NextGEN Gallery in order to work. "
+"Please deactivate NextGEN Public Uploader or activate %s NextGEN Gallery %s"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:69 ../inc/npu-upload.php:371
+msgid "Upload"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:70
+msgid "No file selected."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:71
+msgid "You are not authorized to upload an image."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:72
+msgid "Your image has been successfully uploaded."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:73
+msgid "Your upload failed. Please try again."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:92
+#, php-format
+msgid ""
+"%s NextGEN Public Uploader %s by %s WordPress Website Design and Development "
+"%s"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:105 ../nextgen-public-uploader.php:238
+msgid "NextGEN Public Uploader"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:106
+msgid "Public Uploader"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:118
+msgid "Settings"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:129
+msgid "Plugin Settings"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:157
+msgid "Visitor"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:158
+msgid "Subscriber"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:159
+msgid "Contributor"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:160
+msgid "Author"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:161
+msgid "Editor"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:162
+msgid "Admin"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:166
+msgid "Default Gallery:"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:166
+#, php-format
+msgid "The default gallery ID when using %s with no ID specified."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:167
+msgid "Minimum User Role:"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:167
+msgid "The minimum user role required for image uploading."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:168
+msgid "Uploads Require Approval:"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:168
+msgid ""
+"Exclude images from appearing in galleries until they have been approved."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:169
+msgid "Show Description Field:"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:169
+msgid "Enable the Image Description text field."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:170
+msgid "Image Description Label:"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:170
+msgid "Default label shown for the image description textbox."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:171
+msgid "Notification Email:"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:171
+msgid "The email address to be notified when a image has been submitted."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:172
+msgid "Upload Button Text:"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:172
+msgid "Custom text for upload button."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:173
+msgid "No File Selected Warning:"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:173
+msgid "Warning displayed when no file has been selected for upload."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:174
+msgid "Unauthorized Warning:"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:174
+msgid "Warning displayed when a user does not have permission to upload."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:175
+msgid "Upload Success Message:"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:175
+msgid "Message displayed when an image has been successfully uploaded."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:176
+msgid "Upload Failed Message:"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:176
+msgid "Message displayed when an image failed to upload."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:177
+msgid "Link Love:"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:177
+msgid ""
+"Display link to this plugin in your site's footer (because you love us!)"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:183
+msgid ""
+"Edit the settings below to control the default behaviors of this plugin."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:240
+msgid "Settings saved."
+msgstr ""
+
+#: ../nextgen-public-uploader.php:243
+msgid "Current Version"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:245
+msgid "Donate"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:246
+msgid "Plugin Homepage"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:247
+msgid "Support Forum"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:250
+msgid "Shortcode Examples"
+msgstr ""
+
+#: ../nextgen-public-uploader.php:251
+#, php-format
+msgid ""
+"To insert the public uploader into any content area, use %s or %s, where %s "
+"is the ID of the corresponding gallery."
+msgstr ""
+
+#: ../inc/class.npu_uploader.php:33 ../inc/class.npu_uploader.php:122
+msgid "No gallery selected."
+msgstr ""
+
+#: ../inc/class.npu_uploader.php:40 ../inc/class.npu_uploader.php:129
+msgid "Failure in database, no gallery path set."
+msgstr ""
+
+#: ../inc/class.npu_uploader.php:60 ../inc/class.npu_uploader.php:144
+msgid "is not a valid file."
+msgstr ""
+
+#: ../inc/class.npu_uploader.php:71 ../inc/class.npu_uploader.php:155
+#, php-format
+msgid ""
+"Unable to write to directory %s. Is this directory writable by the server?"
+msgstr ""
+
+#: ../inc/class.npu_uploader.php:77 ../inc/class.npu_uploader.php:161
+msgid "Error, the file could not moved to: "
+msgstr ""
+
+#: ../inc/class.npu_uploader.php:82 ../inc/class.npu_uploader.php:166
+msgid "Error, the file permissions could not set."
+msgstr ""
+
+#: ../inc/npu-upload.php:42
+msgid "You do not have the correct permission"
+msgstr ""
+
+#: ../inc/npu-upload.php:43
+msgid "Unexpected Error"
+msgstr ""
+
+#: ../inc/npu-upload.php:44
+msgid "Upload Failed"
+msgstr ""
+
+#: ../inc/npu-upload.php:102 ../inc/npu-upload.php:338
+msgid "You must be registered and logged in to upload images."
+msgstr ""
+
+#: ../inc/npu-upload.php:155 ../inc/npu-upload.php:362
+msgid "Description:"
+msgstr ""
+
+#: ../inc/npu-upload.php:190 ../inc/npu-upload.php:416
+msgid "Thank you! Your image has been submitted and is pending review."
+msgstr ""
+
+#: ../inc/npu-upload.php:208 ../inc/npu-upload.php:434
+msgid "You must select a file to upload"
+msgstr ""
+
+#: ../inc/npu-upload.php:216 ../inc/npu-upload.php:440
+msgid "Upload failed!"
+msgstr ""
+
+#: ../inc/npu-upload.php:298
+msgid "New Image Pending Review - NextGEN Public Uploader"
+msgstr ""
+
+#: ../inc/npu-upload.php:299
+msgid "A new image has been submitted and is waiting to be reviewed."
+msgstr ""
+
+#: ../inc/npu-upload.php:480
+msgid "Upload images to a NextGEN Gallery"
+msgstr ""
+
+#: ../inc/npu-upload.php:483
+msgid "NextGEN Uploader"
+msgstr ""
+
+#: ../inc/npu-upload.php:516
+msgid "Title:"
+msgstr ""
+
+#: ../inc/npu-upload.php:520
+msgid "Upload to :"
+msgstr ""
+
+#: ../inc/npu-upload.php:522
+msgid "Choose gallery"
+msgstr ""
+
+#: ../tinymce/window.php:8
+msgid "You are not allowed to be here"
+msgstr ""
+
+#: ../tinymce/window.php:61
+msgid "Gallery"
+msgstr ""
+
+#: ../tinymce/window.php:75
+msgid "Select Gallery:"
+msgstr ""
+
+#: ../tinymce/window.php:97
+msgid "Cancel"
+msgstr ""
+
+#: ../tinymce/window.php:101
+msgid "Insert"
+msgstr ""
