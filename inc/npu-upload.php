@@ -96,8 +96,9 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			}
 			if ( !is_user_logged_in() && get_option( 'npu_user_role_select' ) != 99 ) {
 				$strOutput .= '<div class="need_login">';
-				if( !empty( get_option( 'npu_notlogged' ) ) ) {
-					$strOutput .= get_option( 'npu_notlogged' );
+				$notlogged = get_option( 'npu_notlogged' );
+				if( !empty( $notlogged ) ) {
+					$strOutput .= $notlogged;
 				} else {
 					$strOutput .= __( 'You must be registered and logged in to upload images.', 'nextgen-public-uploader' );
 				}
@@ -173,12 +174,12 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 				check_admin_referer( 'ngg_addgallery' );
 				if ( !isset( $_FILES['MF__F_0_0']['error'] ) || $_FILES['MF__F_0_0']['error'] == 0 ) {
 					$objUploaderNggAdmin = new UploaderNggAdmin();
-					$messagetext = $objUploaderNggAdmin->upload_images();
-					$this->arrImageIds = $objUploaderNggAdmin->arrImageIds;
-					$this->strGalleryPath = $objUploaderNggAdmin->strGalleryPath;
-					$this->arrImageNames = $objUploaderNggAdmin->arrImageNames;
-					if ( is_array( $objUploaderNggAdmin->arrThumbReturn ) && count( $objUploaderNggAdmin->arrThumbReturn ) > 0 ) {
-						foreach ( $objUploaderNggAdmin->arrThumbReturn as $strReturnMsg ) {
+                     UploaderNggAdmin::upload_images();
+					$this->arrImageIds = UploaderNggAdmin::$arrImageIds;
+					$this->strGalleryPath = UploaderNggAdmin::$strGalleryPath;
+					$this->arrImageNames = UploaderNggAdmin::$arrImageNames;
+					if ( is_array( UploaderNggAdmin::$arrThumbReturn ) && count( UploaderNggAdmin::$arrThumbReturn ) > 0 ) {
+						foreach ( UploaderNggAdmin::$arrThumbReturn as $strReturnMsg ) {
 							if ( $strReturnMsg != '1' ) {
 								$this->arrErrorMsg[] = $strReturnMsg;
 							}
@@ -400,13 +401,15 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 				if ( ! isset( $_FILES['MF__F_0_0']['error'] ) || $_FILES['MF__F_0_0']['error'] == 0 ) {
 
                     $objUploaderNggAdmin    = new UploaderNggAdmin();
-                    $messagetext            = $objUploaderNggAdmin->upload_images_widget();
-                    $this->arrImageIds      = $objUploaderNggAdmin->arrImageIds;
-                    $this->strGalleryPath   = $objUploaderNggAdmin->strGalleryPath;
-                    $this->arrImageNames    = $objUploaderNggAdmin->arrImageNames;
 
-					if ( is_array( $objUploaderNggAdmin->arrThumbReturn ) && count( $objUploaderNggAdmin->arrThumbReturn ) > 0 ) {
-						foreach ( $objUploaderNggAdmin->arrThumbReturn as $strReturnMsg ) {
+                    UploaderNggAdmin::upload_images_widget();
+                    $this->arrImageIds      = UploaderNggAdmin::$arrImageIds;
+                    $this->strGalleryPath   = UploaderNggAdmin::$strGalleryPath;
+                    $this->arrImageNames    = UploaderNggAdmin::$arrImageNames;
+
+
+					if ( is_array( UploaderNggAdmin::$arrThumbReturn ) && count( UploaderNggAdmin::$arrThumbReturn ) > 0 ) {
+						foreach ( UploaderNggAdmin::$arrThumbReturn as $strReturnMsg ) {
 							if ( $strReturnMsg != '1' ) {
 								$this->arrErrorMsg_widg[] = $strReturnMsg;
 							}

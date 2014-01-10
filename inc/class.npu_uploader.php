@@ -10,17 +10,17 @@ require_once ( NGGALLERY_ABSPATH . '/admin/functions.php' );
 class UploaderNggAdmin extends nggAdmin {
 
 	// Public Variables
-	public $arrImageIds      = array();
-	public $arrImageNames    = array();
-	public $arrThumbReturn   = array();
+	static public $arrImageIds      = array();
+	static public $arrImageNames    = array();
+	static public $arrThumbReturn   = array();
+    static public $strGalleryPath   = '';
 	public $arrEXIF          = array();
 	public $arrErrorMsg      = array();
 	public $arrErrorMsg_widg = array();
 	public $strFileName      = '';
-	public $strGalleryPath   = '';
 	public $blnRedirectPage  = false;
 
-	function upload_images() {
+	static function upload_images() {
 		global $wpdb;
 		// Image Array
 		$imageslist = array();
@@ -41,7 +41,8 @@ class UploaderNggAdmin extends nggAdmin {
 			return;
 		}
 		// Read Image List
-		$dirlist = $this->scandir( WINABSPATH . $gallerypath );
+		$dirlist = UploaderNggAdmin::scandir(WINABSPATH . $gallerypath);
+
 		foreach( $_FILES as $key => $value ) {
 			if ( $_FILES[$key]['error'] == 0 ) {
 				$entropy = '';
@@ -75,10 +76,10 @@ class UploaderNggAdmin extends nggAdmin {
 				// Save Temporary File
 				if ( !@move_uploaded_file( $_FILES[$key]['tmp_name'], $dest_file ) ) {
 					self::show_error( __( 'Error, the file could not moved to: ', 'nextgen-public-uploader' ) . $dest_file );
-					$this->check_safemode( WINABSPATH.$gallerypath );
+                    self::check_safemode( WINABSPATH.$gallerypath );
 					continue;
 				}
-				if ( ! $this->chmod( $dest_file ) ) {
+				if ( ! self::chmod( $dest_file ) ) {
 					self::show_error( __( 'Error, the file permissions could not set.', 'nextgen-public-uploader' ) );
 					continue;
 				}
@@ -94,22 +95,24 @@ class UploaderNggAdmin extends nggAdmin {
 				$npu_exclude_id = 1;
 			}
 			// Add Images to Database
-			$image_ids = $this->add_Images( $galleryID, $imageslist );
-			$this->arrThumbReturn = array();
+			$image_ids = self::add_Images( $galleryID, $imageslist );
+
+            self::$arrThumbReturn = array();
+
 			foreach ( $image_ids as $pid ) {
 				$wpdb->query( "UPDATE $wpdb->nggpictures SET exclude = '$npu_exclude_id' WHERE pid = '$pid'" );
-				$this->arrThumbReturn[] = $this->create_thumbnail( $pid );
+				self::$arrThumbReturn[] = self::create_thumbnail( $pid );
 			}
-			$this->arrImageIds    = array();
-			$this->arrImageIds    = $image_ids;
-			$this->arrImageNames  = array();
-			$this->arrImageNames  = $imageslist;
-			$this->strGalleryPath = $gallerypath;
+			self::$arrImageIds    = array();
+			self::$arrImageIds    = $image_ids;
+			self::$arrImageNames  = array();
+			self::$arrImageNames  = $imageslist;
+			self::$strGalleryPath = $gallerypath;
 		}
 		return;
 	} // End Function
 
-	function upload_images_widget() {
+	static function upload_images_widget() {
 		global $wpdb;
 		// Image Array
 		$imageslist = array();
@@ -130,7 +133,7 @@ class UploaderNggAdmin extends nggAdmin {
 			return;
 		}
 		// Read Image List
-		$dirlist = $this->scandir( WINABSPATH . $gallerypath );
+		$dirlist = self::scandir( WINABSPATH . $gallerypath );
 		foreach( $_FILES as $key => $value ) {
 			if ( $_FILES[$key]['error'] == 0 ) {
 				$temp_file = $_FILES[$key]['tmp_name'];
@@ -159,10 +162,10 @@ class UploaderNggAdmin extends nggAdmin {
 				// Save Temporary File
 				if ( ! @move_uploaded_file( $_FILES[$key]['tmp_name'], $dest_file ) ) {
 					self::show_error( __( 'Error, the file could not moved to: ', 'nextgen-public-uploader' ) . $dest_file );
-					$this->check_safemode( WINABSPATH . $gallerypath );
+					self::check_safemode( WINABSPATH . $gallerypath );
 					continue;
 				}
-				if ( ! $this->chmod( $dest_file ) ) {
+				if ( ! self::chmod( $dest_file ) ) {
 					self::show_error( __( 'Error, the file permissions could not set.', 'nextgen-public-uploader' ) );
 					continue;
 				}
@@ -178,19 +181,19 @@ class UploaderNggAdmin extends nggAdmin {
 				$npu_exclude_id = 1;
 			}
 			// Add Images to Database
-			$image_ids = $this->add_Images( $galleryID, $imageslist );
-			$this->arrThumbReturn = array();
+			$image_ids = self::add_Images( $galleryID, $imageslist );
+			self::$arrThumbReturn = array();
 
 			foreach ( $image_ids as $pid ) { //TODO: prepare
 				$wpdb->query( "UPDATE $wpdb->nggpictures SET exclude = '$npu_exclude_id' WHERE pid = '$pid'" );
-				$this->arrThumbReturn[] = $this->create_thumbnail( $pid );
+				self::$arrThumbReturn[] = self::create_thumbnail($pid);
 			}
 
-			$this->arrImageIds    = array();
-			$this->arrImageIds    = $image_ids;
-			$this->arrImageNames  = array();
-			$this->arrImageNames  = $imageslist;
-			$this->strGalleryPath = $gallerypath;
+            self::$arrImageIds    = array();
+            self::$arrImageIds    = $image_ids;
+            self::$arrImageNames  = array();
+            self::$arrImageNames  = $imageslist;
+            self::$strGalleryPath = $gallerypath;
 		}
 		return;
 	} // End Function

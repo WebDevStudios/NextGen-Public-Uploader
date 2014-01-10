@@ -3,8 +3,8 @@ Contributors: WDS-Scott, williamsba1, rzen, webdevstudios, tw2113, JustinSainton
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3084056
 Tags: nextgen public uploader,nextgen uploader,nextgen gallery,nextgen,gallery,image,upload,photo,picture,visitor,public,uploader
 Requires at least: 3.4
-Tested up to: 3.7
-Stable tag: 1.8
+Tested up to: 3.8
+Stable tag: 1.8.2
 
 NextGEN Public Uploader is an extension to NextGEN Gallery which allows frontend image uploads for your users.
 
@@ -70,6 +70,14 @@ If you have installed NextGEN Gallery, please make sure that it is activated.
 [NextGEN Public Uploader Support](http://wordpress.org/support/plugin/nextgen-public-uploader)
 
 == Changelog ==
+
+= V1.8.2 - 01.10.2014 =
+* Running fine on PHP strict mode
+* Fixed: method called as static an vice-versa improved
+* Plugin works ok with NextCellent plugin
+
+= V1.8.1 - 11.14.2013 =
+* Fix old php version bug with empty()
 
 = V1.8 - 11.14.2013 =
 * Converted widget to proper widget class extension.
