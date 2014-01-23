@@ -96,8 +96,9 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			}
 			if ( !is_user_logged_in() && get_option( 'npu_user_role_select' ) != 99 ) {
 				$strOutput .= '<div class="need_login">';
-				if( !empty( get_option( 'npu_notlogged' ) ) ) {
-					$strOutput .= get_option( 'npu_notlogged' );
+				$notlogged = get_option( 'npu_notlogged' );
+				if( !empty( $notlogged ) ) {
+					$strOutput .= $notlogged;
 				} else {
 					$strOutput .= __( 'You must be registered and logged in to upload images.', 'nextgen-public-uploader' );
 				}
