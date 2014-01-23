@@ -255,7 +255,7 @@ if ( ! class_exists( 'nggLoader' ) ) {
 			</p>
 
 			<h3><?php _e('Shortcode Examples', 'nextgen-public-uploader') ?></h3>
-			<p><?php printf( __( 'To insert the public uploader into any content area, use %s or %s, where %s is the ID of the corresponding gallery.', 'nextgen-public-uploader' ), '<code>[ngg_uploader]</code>', '<code>[ngg_uploader id=1]</code>', '<strong>1</strong>' ); ?></p>
+			<p><?php printf( __( 'To insert the public uploader into any content area, use %s or %s, where %s is the ID of the corresponding gallery.', 'nextgen-public-uploader' ), '<code>[ngg_uploader]</code>', '<code>[ngg_uploader id="1"]</code>', '<strong>1</strong>' ); ?></p>
 
 			<?php do_action( 'npu_plugin_options_page_before_form' ); ?>
 
