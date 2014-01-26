@@ -167,7 +167,7 @@ class NGGallery_Public_uploader {
 			'nextgen-public-uploader',
 			array( $this, 'options_page' )
 		);
-		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'filter_plugin_actions' );
+
 	}
 
 	// Add "Settings" Link to Plugin on Plugins Page
@@ -203,9 +203,13 @@ class NGGallery_Public_uploader {
 
 		// Setup the options for our gallery selector
 		$gallery_options = array();
+
 		include_once( NGGALLERY_ABSPATH . 'lib/ngg-db.php' );
+
 		$nggdb = new nggdb();
-		$gallerylist = $nggdb->find_all_galleries( 'gid', 'DESC' );
+
+		$gallerylist = $nggdb->find_all_galleries( 'gid', 'ASC' );
+
 		foreach ( $gallerylist as $gallery ) {
 			$name = !empty( $gallery->title ) ? $gallery->title : $gallery->name;
 			$gallery_options[ $gallery->gid ] = 'ID: ' . $gallery->gid . ' &ndash; ' . $name;
