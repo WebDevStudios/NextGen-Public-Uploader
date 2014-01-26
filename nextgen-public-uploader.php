@@ -33,31 +33,34 @@ class NGGallery_Public_uploader {
 	public $directory_path;
 	public $directory_url;
 
-	add_action( 'plugins_loaded', 'npu_translate' );
-	function npu_translate() {
+	/**
+	 * Lets build some galleries
+	 */
+	public function __construct() {
+
+		//Some useful properties
+        $this->basename         = plugin_basename( __FILE__ );
+        $this->directory_path   = plugin_dir_path( __FILE__ );
+        $this->directory_url    = plugins_url( dirname( $this->basename ) );
+
+        //And a registration hook
+		register_activation_hook( __FILE__, array( $this, 'activate' ) );
+
+		//Lets let everyone be able to read it, regardless of dialect
 		load_plugin_textdomain( 'nextgen-public-uploader', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-	}
 
-	// Display Error Message
-	add_action( 'admin_notices', 'npu_error_message' );
+		//We need NextGen Gallery to work
+		add_action( 'admin_notices', array( $this, 'maybe_disable_plugin' ) );
 
-	function npu_error_message() {
-		// Include thickbox support
-		add_thickbox();
+		//And our helper functions
+		add_action( 'init', array( $this, 'includes' ) );
 
-		// Generate our error message
-		$output = '';
-		$output .= '<div id="message" class="error">';
-		$output .= sprintf(
-			__( '%s NextGEN Public Uploader %s requires NextGEN Gallery in order to work. Please deactivate NextGEN Public Uploader or activate %s NextGEN Gallery %s', 'nextgen-public-uploader' ),
-			'<p><strong>',
-			'</strong>',
-			'<a href="' . admin_url( '/plugin-install.php?tab=plugin-information&plugin=nextgen-gallery&TB_iframe=true&width=600&height=550' ) . '" target="_blank" class="thickbox onclick">',
-			'</a>.</strong></p>'
-		);
-		$output .= '</div>';
-		echo $output;
+		//Here's how people will access the settings
+		add_action( 'admin_menu', array( $this, 'menu' ) );
+		add_action( 'admin_init', array( $this, 'plugin_settings' ) );
 
+		//Or this way. Handy!
+		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'filter_plugin_actions' ) );
 	}
 
 	// Otherwise, continue like normal
