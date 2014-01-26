@@ -121,14 +121,29 @@ class NGGallery_Public_uploader {
 		}
 
 	}
-	function npu_link_love() {
-		echo sprintf(
-			__( '%s NextGEN Public Uploader %s by %s WordPress Website Design and Development %s', 'nextgen-public-uploader' ),
-			'<p><a href="http://wordpress.org/extend/plugins/nextgen-public-uploader/">',
-			'</a>',
-			'<a href="http://webdevstudios.com/" title="',
-			'">WebDevStudios</a></p>'
-		);
+
+	/**
+	 * Set default option values if we don't have any.
+	 */
+	public function activate() {
+
+		if ( $this->meets_requirements() ) {
+			// If our settings don't already exist, load defaults into the database
+			if ( ! get_option( 'npu_default_gallery' ) ) {
+				update_option( 'npu_default_gallery', 			'1' );
+				update_option( 'npu_user_role_select', 			'99' );
+				update_option( 'npu_exclude_select', 			'Enabled' );
+				update_option( 'npu_image_description_select', 	'Enabled' );
+				update_option( 'npu_description_text', 			'' );
+				update_option( 'npu_notification_email', 		get_option('admin_email') );
+				update_option( 'npu_upload_button', 			__( 'Upload', 'nextgen-public-uploader' ) );
+				update_option( 'npu_no_file', 					__( 'No file selected.', 'nextgen-public-uploader' ) );
+				update_option( 'npu_notlogged', 				__( 'You are not authorized to upload an image.', 'nextgen-public-uploader' ) );
+				update_option( 'npu_upload_success', 			__( 'Your image has been successfully uploaded.', 'nextgen-public-uploader' ) );
+				update_option( 'npu_upload_failed', 			__( 'Your upload failed. Please try again.', 'nextgen-public-uploader' ) );
+			}
+		}
+
 	}
 
 	// Register our settings page as a submenu item of the NextGEN menu item
