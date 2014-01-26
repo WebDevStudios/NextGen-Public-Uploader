@@ -471,45 +471,20 @@ class NGGallery_Public_uploader {
 		return $valid;
 	}
 
-	// Create our Settings page
-	function npu_plugin_options_page() {
-
-	// If the user cannot manage options, bail here
-	if ( ! current_user_can( 'manage_options' ) )
-		return false;
-	?>
-		<div class="wrap">
-
-			<?php screen_icon(); ?> <h2><?php _e( 'NextGEN Public Uploader', 'nextgen-public-uploader' ); ?></h2>
-
-			<?php if ( isset($_GET['settings-updated']) ) echo '<div class="updated"><p><strong>' . __( 'Settings saved.', 'nextgen-public-uploader' ) . "</strong></p></div>\n"; ?>
-
-			<p>
-				<strong><?php _e('Current Version', 'nextgen-public-uploader') ?>:</strong> <?php $plugin_data = get_plugin_data( __FILE__, false ); echo $plugin_data['Version']; ?> |
-				<a href="http://webdevstudios.com">WebDevStudios.com</a> |
-				<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=3084056"><?php _e('Donate', 'nextgen-public-uploader' ) ?></a> |
-				<a href="http://wordpress.org/extend/plugins/nextgen-public-uploader/"><?php _e('Plugin Homepage', 'nextgen-public-uploader' ) ?></a> |
-				<a href="http://wordpress.org/support/plugin/nextgen-public-uploader/"><?php _e('Support Forum', 'nextgen-public-uploader' ) ?></a>
-			</p>
-
-			<h3><?php _e('Shortcode Examples', 'nextgen-public-uploader') ?></h3>
-			<p><?php printf( __( 'To insert the public uploader into any content area, use %s or %s, where %s is the ID of the corresponding gallery.', 'nextgen-public-uploader' ), '<code>[ngg_uploader]</code>', '<code>[ngg_uploader id="1"]</code>', '<strong>1</strong>' ); ?></p>
-
-			<?php do_action( 'npu_plugin_options_page_before_form' ); ?>
-
-			<form action="options.php" method="post">
-
-				<?php
-					settings_fields( 'npu_settings' );
-					do_settings_sections( 'nextgen-public-uploader' );
-					submit_button();
-				?>
-
-			</form>
-
-		</div>
-
-	<?php
+	/**
+	 * Add our settings link to the plugins listing for our plugin.
+	 *
+	 * @param  array  $links Array of links already available
+	 *
+	 * @return array         Array of new links to use
+	 */
+	public function filter_plugin_actions( $links ) {
+		return array_merge(
+			array(
+				'settings' => '<a href="' . admin_url( 'admin.php?page=nextgen-public-uploader' ) . '">' . __( 'Settings', 'nextgen-public-uploader' ) . '</a>'
+			),
+			$links
+		);
 	}
 
 }
