@@ -252,7 +252,7 @@ class NGGallery_Public_uploader {
 
 		foreach ( $gallerylist as $gallery ) {
 			$name = !empty( $gallery->title ) ? $gallery->title : $gallery->name;
-			$gallery_options[ $gallery->gid ] = 'ID: ' . $gallery->gid . ' &ndash; ' . $name;
+			$gallery_options[ $gallery->gid ] = $gallery->gid . ' &ndash; ' . $name;
 		}
 
 		// Setup the options for our role selector
