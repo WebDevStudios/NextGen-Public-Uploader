@@ -220,26 +220,26 @@ class NGGallery_Public_uploader {
 	<?php
 	}
 
-	// Register all of our settings
-	add_action( 'admin_init', 'npu_plugin_settings' );
-	function npu_plugin_settings() {
+	/**
+	 * Set up and register our settings
+	 */
+	public function plugin_settings() {
 
 		// Register our settings section
-		add_settings_section( 'npu_settings', __( 'Plugin Settings', 'nextgen-public-uploader' ), 'npu_settings_description', 'nextgen-public-uploader' );
+		add_settings_section( 'npu_settings', __( 'Plugin Settings', 'nextgen-public-uploader' ), array( $this, 'settings_description' ), 'nextgen-public-uploader' );
 
 		// Register all our settings
-		register_setting( 'npu_settings', 'npu_default_gallery',			'npu_settings_sanitization' );
-		register_setting( 'npu_settings', 'npu_user_role_select',			'npu_settings_sanitization' );
-		register_setting( 'npu_settings', 'npu_image_description_select',	'npu_settings_sanitization' );
-		register_setting( 'npu_settings', 'npu_exclude_select',				'npu_settings_sanitization' );
-		register_setting( 'npu_settings', 'npu_notification_email',			'npu_settings_sanitization' );
-		register_setting( 'npu_settings', 'npu_upload_button',				'npu_settings_sanitization' );
-		register_setting( 'npu_settings', 'npu_no_file',					'npu_settings_sanitization' );
-		register_setting( 'npu_settings', 'npu_description_text',			'npu_settings_sanitization' );
-		register_setting( 'npu_settings', 'npu_notlogged',					'npu_settings_sanitization' );
-		register_setting( 'npu_settings', 'npu_upload_success',				'npu_settings_sanitization' );
-		register_setting( 'npu_settings', 'npu_upload_failed',				'npu_settings_sanitization' );
-		register_setting( 'npu_settings', 'npu_image_link_love',			'npu_settings_sanitization' );
+		register_setting( 'npu_settings', 'npu_default_gallery',			array( $this, 'settings_sanitization' ) );
+		register_setting( 'npu_settings', 'npu_user_role_select',			array( $this, 'settings_sanitization' ) );
+		register_setting( 'npu_settings', 'npu_image_description_select',	array( $this, 'settings_sanitization' ) );
+		register_setting( 'npu_settings', 'npu_exclude_select',				array( $this, 'settings_sanitization' ) );
+		register_setting( 'npu_settings', 'npu_notification_email',			array( $this, 'settings_sanitization' ) );
+		register_setting( 'npu_settings', 'npu_upload_button',				array( $this, 'settings_sanitization' ) );
+		register_setting( 'npu_settings', 'npu_no_file',					array( $this, 'settings_sanitization' ) );
+		register_setting( 'npu_settings', 'npu_description_text',			array( $this, 'settings_sanitization' ) );
+		register_setting( 'npu_settings', 'npu_notlogged',					array( $this, 'settings_sanitization' ) );
+		register_setting( 'npu_settings', 'npu_upload_success',				array( $this, 'settings_sanitization' ) );
+		register_setting( 'npu_settings', 'npu_upload_failed',				array( $this, 'settings_sanitization' ) );
 
 		// Setup the options for our gallery selector
 		$gallery_options = array();
