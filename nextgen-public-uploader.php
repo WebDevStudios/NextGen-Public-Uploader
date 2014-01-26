@@ -419,7 +419,7 @@ class NGGallery_Public_uploader {
 		$output .= '</select>';
 
 		if ( isset( $args['description'] ) )
-			$output .= ' <span class="description">' . $args['description'] . '</span>';
+			$output .= '<p><span class="description">' . $args['description'] . '</span></p>';
 
 		echo $output;
 	}
@@ -436,7 +436,7 @@ class NGGallery_Public_uploader {
 		$output = '';
 		$output .= '<label for="' . $args['ID'] . '"><input type="checkbox" id="' . $args['ID'] . '" name="' . $args['ID'] . '" value="' . $args['value'] . '" ' . checked( get_option($args['ID']), $args['value'], false ) . ' /> ' . $args['label'] . '</label>';
 		if ( isset( $args['description'] ) )
-			$output .= ' <span class="description">' . $args['description'] . '</span>';
+			$output .= '<p><span class="description">' . $args['description'] . '</span></p>';
 
 		echo $output;
 	}
@@ -453,7 +453,7 @@ class NGGallery_Public_uploader {
 		$output = '';
 		$output .= '<input type="text" class="regular-text" name="' . $args['ID'] . '" value="' . get_option($args['ID']) . '" />';
 		if ( isset( $args['description'] ) )
-			$output .= ' <span class="description">' . $args['description'] . '</span>';
+			$output .= '<p><span class="description">' . $args['description'] . '</span></p>';
 		echo $output;
 	}
 
