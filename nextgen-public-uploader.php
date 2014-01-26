@@ -485,6 +485,25 @@ class NGGallery_Public_uploader {
 		);
 	}
 
+	public function shortcodes() { ?>
+		<h2><?php _e( 'Shortcode Examples', 'nextgen-public-uploader' ) ?></h2>
+		<p><?php printf( __( 'To insert the public uploader into any content area, use %s or %s, where %s is the ID of the corresponding gallery.', 'nextgen-public-uploader' ), '<code>[ngg_uploader]</code>', '<code>[ngg_uploader id="1"]</code>', '<strong>1</strong>' ); ?></p>
+
+		<?php do_action( 'npu_shortcodes' ); ?>
+	<?php
+	}
+
+	public function footer_text() { ?>
+		<p>
+			<strong><?php _e('Current Version', 'nextgen-public-uploader') ?>:</strong> <?php $plugin_data = get_plugin_data( __FILE__, false ); echo $plugin_data['Version']; ?> |
+			<a href="http://webdevstudios.com">WebDevStudios.com</a> |
+			<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=3084056"><?php _e('Donate', 'nextgen-public-uploader' ) ?></a> |
+			<a href="http://wordpress.org/plugins/nextgen-public-uploader/"><?php _e('Plugin Homepage', 'nextgen-public-uploader' ) ?></a> |
+			<a href="http://wordpress.org/support/plugin/nextgen-public-uploader/"><?php _e('Support Forum', 'nextgen-public-uploader' ) ?></a>
+		</p>
+	<?php
+	}
+
 }
 // Have a nice day!
 $nggpu = new NGGallery_Public_uploader;
