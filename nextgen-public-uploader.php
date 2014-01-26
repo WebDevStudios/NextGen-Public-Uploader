@@ -426,8 +426,14 @@ class NGGallery_Public_uploader {
 		echo $output;
 	}
 
-	// Input for checkbox options
-	function npu_settings_checkbox( $args ) {
+	/**
+	 * Echo a checkbox input
+	 *
+	 * @param  array  $args array of arguments to use
+	 *
+	 * @return mixed        html checkbox input
+	 */
+	public function settings_checkbox( $args ) {
 
 		$output = '';
 		$output .= '<label for="' . $args['ID'] . '"><input type="checkbox" id="' . $args['ID'] . '" name="' . $args['ID'] . '" value="' . $args['value'] . '" ' . checked( get_option($args['ID']), $args['value'], false ) . ' /> ' . $args['label'] . '</label>';
