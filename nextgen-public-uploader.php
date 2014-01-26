@@ -459,8 +459,14 @@ class NGGallery_Public_uploader {
 		echo $output;
 	}
 
-	// Perform some rudimentary sanitization on all our options
-	function npu_settings_sanitization( $input ) {
+	/**
+	 * Sanitize our settings
+	 *
+	 * @param  string  $input value to sanitize before saving
+	 *
+	 * @return string         sanitized value
+	 */
+	public function settings_sanitization( $input ) {
 		$valid = esc_html( $input );
 		return $valid;
 	}
