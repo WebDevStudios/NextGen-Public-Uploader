@@ -443,8 +443,14 @@ class NGGallery_Public_uploader {
 		echo $output;
 	}
 
-	// Input for text options
-	function npu_settings_text( $args ) {
+	/**
+	 * Echo a text input
+	 *
+	 * @param  array  $args array of arguments to use
+	 *
+	 * @return mixed        html text input
+	 */
+	public function settings_text( $args ) {
 
 		$output = '';
 		$output .= '<input type="text" class="regular-text" name="' . $args['ID'] . '" value="' . get_option($args['ID']) . '" />';
