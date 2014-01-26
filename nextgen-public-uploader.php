@@ -414,8 +414,7 @@ class NGGallery_Public_uploader {
 	 */
 	public function settings_select( $args ) {
 
-		$output = '';
-		$output .= '<select name="' . $args['ID'] . '">';
+		$output = '<select name="' . $args['ID'] . '">';
 		foreach ( $args['options'] as $value => $label ) {
 			$output .= '<option ' . selected( $value, get_option($args['ID']), false ) . ' value="' . $value . '">' . $label . '</option>';
 		}
