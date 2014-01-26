@@ -192,7 +192,7 @@ class NGGallery_Public_uploader {
 				screen_icon();
 			}
 			?>
-			<h2><?php _e( 'NextGEN Public Uploader', 'nextgen-public-uploader' ); ?></h2>
+			<h1><?php _e( 'NextGEN Public Uploader', 'nextgen-public-uploader' ); ?></h1>
 
 			<?php if ( isset( $_GET['settings-updated'] ) ) { ?>
 				<div class="updated"><p><?php _e( 'Settings saved.', 'nextgen-public-uploader' ); ?></p></div>
