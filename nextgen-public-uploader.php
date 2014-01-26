@@ -405,8 +405,14 @@ class NGGallery_Public_uploader {
 		echo '<p>' . __( 'Edit the settings below to control the default behaviors of this plugin.', 'nextgen-public-uploader' ) . '</p>';
 	}
 
-	// Input for select options
-	function npu_settings_select( $args ) {
+	/**
+	 * Echo a <select> input
+	 *
+	 * @param  array  $args array of arguments to use
+	 *
+	 * @return mixed        html select input with populated options
+	 */
+	public function settings_select( $args ) {
 
 		$output = '';
 		$output .= '<select name="' . $args['ID'] . '">';
