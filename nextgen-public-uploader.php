@@ -108,17 +108,18 @@ class NGGallery_Public_uploader {
 
 	}
 
-	// Upload Form Path
-	require_once( dirname (__FILE__) . '/inc/npu-upload.php');
+	/**
+	 * Load our resources if we meet requirements.
+	 *
+	 * @return void
+	 */
+	public function includes() {
 
-	// TinyMCE
-	define( 'nextgenPublicUpload_URLPATH', WP_PLUGIN_URL . '/' . plugin_basename( dirname(__FILE__) ) . '/' );
-	include_once( dirname (__FILE__) . '/tinymce/tinymce.php' );
+		if ( $this->meets_requirements() ) {
+			require_once( dirname (__FILE__) . '/inc/npu-upload.php');
+			require_once( dirname (__FILE__) . '/tinymce/tinymce.php' );
+		}
 
-	// Output NextGEN Public Uploader Link Love in footer
-	$linklove = get_option( 'npu_image_link_love' );
-	if ( !empty( $linklove ) ) {
-		add_action('wp_footer', 'npu_link_love');
 	}
 	function npu_link_love() {
 		echo sprintf(
