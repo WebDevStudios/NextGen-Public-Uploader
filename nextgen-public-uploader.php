@@ -63,27 +63,47 @@ class NGGallery_Public_uploader {
 		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'filter_plugin_actions' ) );
 	}
 
-	// Otherwise, continue like normal
-	} else {
+	/**
+	 * Checks if NextGen Gallery is available
+	 *
+	 * @since  1.9
+	 *
+	 * @return bool  whether the NGG base class exists.
+	 */
+	public static function meets_requirements() {
 
-	// Register an activation hook for setting our default settings
-	register_activation_hook( __FILE__, 'npu_plugin_activation' );
-	function npu_plugin_activation() {
+		if ( class_exists( 'C_NextGEN_Bootstrap' ) )
+			return true;
+		else
+			return false;
 
-		// If our settings don't already exist, load them in to the database
-		if ( ! get_option( 'npu_default_gallery' ) ) {
-			update_option( 'npu_default_gallery', 			'1' );
-			update_option( 'npu_user_role_select', 			'99' );
-			update_option( 'npu_exclude_select', 			'Enabled' );
-			update_option( 'npu_image_description_select', 	'Enabled' );
-			update_option( 'npu_description_text', 			'' );
-			update_option( 'npu_notification_email', 		get_option('admin_email') );
-			update_option( 'npu_upload_button', 			__( 'Upload', 'nextgen-public-uploader' ) );
-			update_option( 'npu_no_file', 					__( 'No file selected.', 'nextgen-public-uploader' ) );
-			update_option( 'npu_notlogged', 				__( 'You are not authorized to upload an image.', 'nextgen-public-uploader' ) );
-			update_option( 'npu_upload_success', 			__( 'Your image has been successfully uploaded.', 'nextgen-public-uploader' ) );
-			update_option( 'npu_upload_failed', 			__( 'Your upload failed. Please try again.', 'nextgen-public-uploader' ) );
-			update_option( 'npu_image_link_love', 			'' );
+	}
+
+	/**
+	 * Check if we meet requirements, and disable if we don't
+	 *
+	 * @since  1.9
+	 *
+	 * @return string  html message.
+	 */
+	public function maybe_disable_plugin() {
+
+		if ( ! $this->meets_requirements() ) {
+			// Display our error
+			echo '<div id="message" class="error">';
+			echo '<p>';
+			echo sprintf(
+				__( '%s NextGEN Public Uploader %s requires NextGEN Gallery in order to work. Please deactivate NextGEN Public Uploader or activate %s NextGEN Gallery %s', 'nextgen-public-uploader' ),
+				'<p><strong>',
+				'</strong>',
+				'<a href="' . admin_url( '/plugin-install.php?tab=plugin-information&plugin=nextgen-gallery&TB_iframe=true&width=600&height=550' ) . '" target="_blank" class="thickbox onclick">',
+				'</a>.</strong></p>'
+			);
+			echo '</p>';
+			echo '</div>';
+
+			// Deactivate our plugin
+			deactivate_plugins( $this->basename );
 		}
 
 	}
