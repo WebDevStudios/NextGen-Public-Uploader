@@ -400,7 +400,7 @@ class NGGallery_Public_uploader {
 	 * @return string html text
 	 */
 	public function settings_description() {
-		echo '<p>' . __( 'Edit the settings below to control the default behaviors of this plugin.', 'nextgen-public-uploader' ) . '</p>';
+		echo '<p>' . __( 'Edit the settings below to control the default behaviors of this plugin. Shortcode example(s) available at the bottom of the page.', 'nextgen-public-uploader' ) . '</p>';
 	}
 
 	/**
