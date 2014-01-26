@@ -64,6 +64,9 @@ class NGGallery_Public_uploader {
 
 		//Or this way. Handy!
 		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'filter_plugin_actions' ) );
+
+		add_action( 'npu_plugin_options_page_after_form', array( $this, 'shortcodes' ) );
+		add_action( 'npu_plugin_options_page_after_form', array( $this, 'footer_text' ), 11 );
 	}
 
 	/**
