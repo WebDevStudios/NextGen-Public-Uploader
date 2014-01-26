@@ -27,6 +27,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+class NGGallery_Public_uploader {
 
 // If NextGEN Gallery doesn't exist, or it's not active...
 if ( ! class_exists( 'nggLoader' ) ) {
@@ -274,4 +275,7 @@ if ( ! class_exists( 'nggLoader' ) ) {
 
 	<?php
 	}
-} // End check for NextGEN gallery
+
+}
+// Have a nice day!
+$nggpu = new NGGallery_Public_uploader;
