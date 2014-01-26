@@ -224,7 +224,7 @@ class NGGallery_Public_uploader {
 	public function plugin_settings() {
 
 		// Register our settings section
-		add_settings_section( 'npu_settings', __( 'Plugin Settings', 'nextgen-public-uploader' ), array( $this, 'settings_description' ), 'nextgen-public-uploader' );
+		add_settings_section( 'npu_settings', __( 'Settings', 'nextgen-public-uploader' ), array( $this, 'settings_description' ), 'nextgen-public-uploader' );
 
 		// Register all our settings
 		register_setting( 'npu_settings', 'npu_default_gallery',			array( $this, 'settings_sanitization' ) );
