@@ -146,16 +146,26 @@ class NGGallery_Public_uploader {
 
 	}
 
-	// Register our settings page as a submenu item of the NextGEN menu item
-	add_action( 'admin_menu', 'npu_plugin_menu' );
-	function npu_plugin_menu() {
-		add_submenu_page(
+	/**
+	 * Add our menu.
+	 */
+	public function menu() {
+
+		//NOTE: Until I figure out how to make it a submenu, it's going as a main menu item
+		/*add_submenu_page(
 			NGGFOLDER,
 			__( 'NextGEN Public Uploader', 'nextgen-public-uploader' ),
 			__( 'Public Uploader', 'nextgen-public-uploader' ),
 			'manage_options',
 			'nextgen-public-uploader',
-			'npu_plugin_options_page'
+			array( $this, 'options_page' )
+		);*/
+		add_menu_page(
+			__( 'NextGEN Public Uploader', 'nextgen-public-uploader' ),
+			__( 'NextGEN Public Uploader', 'nextgen-public-uploader' ),
+			'manage_options',
+			'nextgen-public-uploader',
+			array( $this, 'options_page' )
 		);
 		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'filter_plugin_actions' );
 	}
