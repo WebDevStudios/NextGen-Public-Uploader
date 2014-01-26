@@ -396,8 +396,12 @@ class NGGallery_Public_uploader {
 		);
 	}
 
-	// Descriptive text for our settings section
-	function npu_settings_description() {
+	/**
+	 * Description setting
+	 *
+	 * @return string html text
+	 */
+	public function settings_description() {
 		echo '<p>' . __( 'Edit the settings below to control the default behaviors of this plugin.', 'nextgen-public-uploader' ) . '</p>';
 	}
 
