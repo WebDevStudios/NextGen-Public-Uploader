@@ -266,19 +266,134 @@ class NGGallery_Public_uploader {
 		);
 
 		// Add our settings fields
-		add_settings_field( 'npu_default_gallery', 			__( 'Default Gallery:', 'nextgen-public-uploader' ),			'npu_settings_select', 		'nextgen-public-uploader',	'npu_settings',		array( 'ID' => 'npu_default_gallery',			'description' => sprintf( __( 'The default gallery ID when using %s with no ID specified.', 'nextgen-public-uploader' ), '<code>[ngg_uploader]</code>' ), 'options' => $gallery_options ) );
-		add_settings_field( 'npu_user_role_select', 		__( 'Minimum User Role:', 'nextgen-public-uploader' ),			'npu_settings_select', 		'nextgen-public-uploader',	'npu_settings',		array( 'ID' => 'npu_user_role_select',			'description' => __( 'The minimum user role required for image uploading.', 'nextgen-public-uploader' ), 'options' => $role_options ) );
-		add_settings_field( 'npu_exclude_select', 			__( 'Uploads Require Approval:', 'nextgen-public-uploader' ),	'npu_settings_checkbox', 	'nextgen-public-uploader',	'npu_settings',		array( 'ID' => 'npu_exclude_select',			'description' => '',	'value' => 'Enabled', 'label' => __( 'Exclude images from appearing in galleries until they have been approved.', 'nextgen-public-uploader' ) ) );
-		add_settings_field( 'npu_image_description_select', __( 'Show Description Field:', 'nextgen-public-uploader' ),		'npu_settings_checkbox', 	'nextgen-public-uploader',	'npu_settings',		array( 'ID' => 'npu_image_description_select',	'description' => '',	'value' => 'Enabled', 'label' => __( 'Enable the Image Description text field.', 'nextgen-public-uploader' ) ) );
-		add_settings_field( 'npu_description_text', 		__( 'Image Description Label:', 'nextgen-public-uploader' ),	'npu_settings_text', 		'nextgen-public-uploader',	'npu_settings',		array( 'ID' => 'npu_description_text',			'description' => __( 'Default label shown for the image description textbox.', 'nextgen-public-uploader' ) ) );
-		add_settings_field( 'npu_notification_email', 		__( 'Notification Email:', 'nextgen-public-uploader' ),			'npu_settings_text', 		'nextgen-public-uploader',	'npu_settings',		array( 'ID' => 'npu_notification_email',		'description' => __( 'The email address to be notified when a image has been submitted.', 'nextgen-public-uploader' ) ) );
-		add_settings_field( 'npu_upload_button', 			__( 'Upload Button Text:', 'nextgen-public-uploader' ),			'npu_settings_text', 		'nextgen-public-uploader',	'npu_settings',		array( 'ID' => 'npu_upload_button',				'description' => __( 'Custom text for upload button.', 'nextgen-public-uploader' ) ) );
-		add_settings_field( 'npu_no_file', 					__( 'No File Selected Warning:', 'nextgen-public-uploader' ),	'npu_settings_text', 		'nextgen-public-uploader',	'npu_settings',		array( 'ID' => 'npu_no_file',					'description' => __( 'Warning displayed when no file has been selected for upload.', 'nextgen-public-uploader' ) ) );
-		add_settings_field( 'npu_notlogged', 				__( 'Unauthorized Warning:', 'nextgen-public-uploader' ),		'npu_settings_text', 		'nextgen-public-uploader',	'npu_settings',		array( 'ID' => 'npu_notlogged',					'description' => __( 'Warning displayed when a user does not have permission to upload.', 'nextgen-public-uploader' ) ) );
-		add_settings_field( 'npu_upload_success', 			__( 'Upload Success Message:', 'nextgen-public-uploader' ),		'npu_settings_text', 		'nextgen-public-uploader',	'npu_settings',		array( 'ID' => 'npu_upload_success',			'description' => __( 'Message displayed when an image has been successfully uploaded.', 'nextgen-public-uploader' ) ) );
-		add_settings_field( 'npu_upload_failed', 			__( 'Upload Failed Message:', 'nextgen-public-uploader' ),		'npu_settings_text', 		'nextgen-public-uploader',	'npu_settings',		array( 'ID' => 'npu_upload_failed',				'description' => __( 'Message displayed when an image failed to upload.', 'nextgen-public-uploader' ) ) );
-		add_settings_field( 'npu_image_link_love', 			__( 'Link Love:', 'nextgen-public-uploader' ),					'npu_settings_checkbox', 	'nextgen-public-uploader',	'npu_settings',		array( 'ID' => 'npu_image_link_love',			'description' => '',	'value' => true, 'label' => __( 'Display link to this plugin in your site\'s footer (because you love us!)', 'nextgen-public-uploader' ) ) );
-
+		add_settings_field(
+			'npu_default_gallery',
+			__( 'Default Gallery:', 'nextgen-public-uploader' ),
+			array( $this, 'settings_select' ),
+			'nextgen-public-uploader',
+			'npu_settings',
+			array(
+				'ID' => 'npu_default_gallery',
+				'description' => sprintf( __( 'The default gallery ID when using %s with no ID specified.', 'nextgen-public-uploader' ),
+				'<code>[ngg_uploader]</code>' ),
+				'options' => $gallery_options
+			)
+		);
+		add_settings_field(
+			'npu_user_role_select',
+			__( 'Minimum User Role:', 'nextgen-public-uploader' ),
+			array( $this, 'settings_select' ),
+			'nextgen-public-uploader',
+			'npu_settings',
+			array(
+				'ID' => 'npu_user_role_select',
+				'description' => __( 'The minimum user role required for image uploading.', 'nextgen-public-uploader' ),
+				'options' => $role_options
+			)
+		);
+		add_settings_field(
+			'npu_exclude_select',
+			__( 'Uploads Require Approval:', 'nextgen-public-uploader' ),
+			array( $this, 'settings_checkbox' ),
+			'nextgen-public-uploader',
+			'npu_settings',
+			array(
+				'ID' => 'npu_exclude_select',
+				'description' => '',
+				'value' => 'Enabled',
+				'label' => __( 'Exclude images from appearing in galleries until they have been approved.', 'nextgen-public-uploader' )
+			)
+		);
+		add_settings_field(
+			'npu_image_description_select',
+			__( 'Show Description Field:', 'nextgen-public-uploader' ),
+			array( $this, 'settings_checkbox' ),
+			'nextgen-public-uploader',
+			'npu_settings',
+			array(
+				'ID' => 'npu_image_description_select',
+				'description' => '',
+				'value' => 'Enabled',
+				'label' => __( 'Enable the Image Description text field.', 'nextgen-public-uploader' )
+			)
+		);
+		add_settings_field(
+			'npu_description_text',
+			__( 'Image Description Label:', 'nextgen-public-uploader' ),
+			array( $this, 'settings_text' ),
+			'nextgen-public-uploader',
+			'npu_settings',
+			array(
+				'ID' => 'npu_description_text',
+				'description' => __( 'Default label shown for the image description textbox.', 'nextgen-public-uploader' )
+			)
+		);
+		add_settings_field(
+			'npu_notification_email',
+			__( 'Notification Email:', 'nextgen-public-uploader' ),
+			array( $this, 'settings_text' ),
+			'nextgen-public-uploader',
+			'npu_settings',
+			array(
+				'ID' => 'npu_notification_email',
+				'description' => __( 'The email address to be notified when a image has been submitted.', 'nextgen-public-uploader' )
+			)
+		);
+		add_settings_field(
+			'npu_upload_button',
+			__( 'Upload Button Text:', 'nextgen-public-uploader' ),
+			array( $this, 'settings_text' ),
+			'nextgen-public-uploader',
+			'npu_settings',
+			array(
+				'ID' => 'npu_upload_button',
+				'description' => __( 'Custom text for upload button.', 'nextgen-public-uploader' )
+			)
+		);
+		add_settings_field(
+			'npu_no_file',
+			__( 'No File Selected Warning:', 'nextgen-public-uploader' ),
+			array( $this, 'settings_text' ),
+			'nextgen-public-uploader',
+			'npu_settings',
+			array(
+				'ID' => 'npu_no_file',
+				'description' => __( 'Warning displayed when no file has been selected for upload.', 'nextgen-public-uploader' )
+			)
+		);
+		add_settings_field(
+			'npu_notlogged',
+			__( 'Unauthorized Warning:', 'nextgen-public-uploader' ),
+			array( $this, 'settings_text' ),
+			'nextgen-public-uploader',
+			'npu_settings',
+			array(
+				'ID' => 'npu_notlogged',
+				'description' => __( 'Warning displayed when a user does not have permission to upload.', 'nextgen-public-uploader' )
+			)
+		);
+		add_settings_field(
+			'npu_upload_success',
+			__( 'Upload Success Message:', 'nextgen-public-uploader' ),
+			array( $this, 'settings_text' ),
+			'nextgen-public-uploader',
+			'npu_settings',
+			array(
+				'ID' => 'npu_upload_success',
+				'description' => __( 'Message displayed when an image has been successfully uploaded.', 'nextgen-public-uploader' )
+			)
+		);
+		add_settings_field(
+			'npu_upload_failed',
+			__( 'Upload Failed Message:', 'nextgen-public-uploader' ),
+			array( $this, 'settings_text' ),
+			'nextgen-public-uploader',
+			'npu_settings',
+			array(
+				'ID' => 'npu_upload_failed',
+				'description' => __( 'Message displayed when an image failed to upload.', 'nextgen-public-uploader' )
+			)
+		);
 	}
 
 	// Descriptive text for our settings section
