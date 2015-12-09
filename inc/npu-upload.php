@@ -232,8 +232,8 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 						if ( $filename ) {
 							$gallerypath = $wpdb->get_var( $wpdb->prepare( "SELECT path FROM $wpdb->nggallery WHERE gid = %d", $gal_id ) );
 							if ( $gallerypath ){
-								@unlink( WINABSPATH . $gallerypath . '/thumbs/thumbs_' . $filename );
-								@unlink( WINABSPATH . $gallerypath . '/' . $filename );
+								@unlink( ABSPATH . $gallerypath . '/thumbs/thumbs_' . $filename );
+								@unlink( ABSPATH . $gallerypath . '/' . $filename );
 							}
 							$delete_pic = $wpdb->delete( $wpdb->nggpictures, array( 'pid' => $intImageId ), array( '%d' ) );
 						}
