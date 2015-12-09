@@ -289,7 +289,9 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 				'template' => ''
 			), $this );
 
-			$this->arrShortcodeArgs = version_compare( $GLOBALS['wp_version'], '3.6', '>=' ) ? shortcode_atts( $default_args, $atts, 'ngg_uploader' ) : shortcode_atts( $default_args, $atts );
+			$this->arrShortcodeArgs = version_compare( $GLOBALS['wp_version'], '3.6', '>=' )
+					? shortcode_atts( $default_args, $atts, 'ngg_uploader' )
+					: shortcode_atts( $default_args, $atts );
 
 			extract( $this->arrShortcodeArgs );
 
