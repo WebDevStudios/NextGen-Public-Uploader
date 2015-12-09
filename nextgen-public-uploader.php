@@ -160,7 +160,7 @@ class NGGallery_Public_uploader {
 
 		//NOTE: Until I figure out how to make it a submenu, it's going as a main menu item
 		/*add_submenu_page(
-			NGGFOLDER,
+			'nextgen-gallery',
 			__( 'NextGEN Public Uploader', 'nextgen-public-uploader' ),
 			__( 'Public Uploader', 'nextgen-public-uploader' ),
 			'manage_options',
