@@ -152,6 +152,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			} else {
 				return $strOutput;
 			}
+			return '';
 		}
 
 		public function maybe_display_image_description( $i = false ) {
