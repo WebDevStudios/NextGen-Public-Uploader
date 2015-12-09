@@ -79,11 +79,11 @@ class NGGallery_Public_uploader {
 	 */
 	public static function meets_requirements() {
 
-		if ( class_exists( 'C_NextGEN_Bootstrap' ) )
+		if ( class_exists( 'C_NextGEN_Bootstrap' ) ) {
 			return true;
-		else
-			return false;
+		}
 
+		return false;
 	}
 
 	/**
