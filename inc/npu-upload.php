@@ -181,7 +181,8 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 				check_admin_referer( 'ngg_addgallery' );
 				if ( !isset( $_FILES['MF__F_0_0']['error'] ) || $_FILES['MF__F_0_0']['error'] == 0 ) {
 					$objUploaderNggAdmin = new UploaderNggAdmin();
-					$messagetext = $objUploaderNggAdmin->upload_images();
+					$objUploaderNggAdmin->upload_images();
+
 					$this->arrImageIds = $objUploaderNggAdmin->arrImageIds;
 					$this->strGalleryPath = $objUploaderNggAdmin->strGalleryPath;
 					$this->arrImageNames = $objUploaderNggAdmin->arrImageNames;
