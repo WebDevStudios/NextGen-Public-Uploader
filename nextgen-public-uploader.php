@@ -241,15 +241,14 @@ class NGGallery_Public_uploader {
 			$gallery_options[ $gallery->gid ] = $gallery->gid . ' &ndash; ' . $name;
 		}
 
-		// Setup the options for our role selector
-		$role_options = array( //are
-			'99'	=> __( 'Visitor', 'nextgen-public-uploader' ),
-			'0'		=> __( 'Subscriber', 'nextgen-public-uploader' ),
-			'1'		=> __( 'Contributor', 'nextgen-public-uploader' ),
-			'2'		=> __( 'Author', 'nextgen-public-uploader' ),
-			'7'		=> __( 'Editor', 'nextgen-public-uploader' ),
-			'10'	=> __( 'Admin', 'nextgen-public-uploader' )
-		);
+		$role_options = apply_filters( 'npu_plugin_roles', array(
+			'99' => __( 'Visitor', 'nextgen-public-uploader' ),
+			'0'  => __( 'Subscriber', 'nextgen-public-uploader' ),
+			'1'  => __( 'Contributor', 'nextgen-public-uploader' ),
+			'2'  => __( 'Author', 'nextgen-public-uploader' ),
+			'7'  => __( 'Editor', 'nextgen-public-uploader' ),
+			'10' => __( 'Admin', 'nextgen-public-uploader' )
+		) );
 
 		// Add our settings fields
 		add_settings_field(
