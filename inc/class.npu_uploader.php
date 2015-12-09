@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /*
 Is there any way we can handle the uploading more gracefully?
 Does NGG rely on not uploading to the media library, making the functions available there not applicable?
