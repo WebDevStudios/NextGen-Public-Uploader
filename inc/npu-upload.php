@@ -443,10 +443,9 @@ class NextGenPublicUploader extends WP_Widget {
 		// Set Defaults
 		$instance = wp_parse_args( (array) $instance, array( 'gal_id' => '0' ) );
 
-		include_once ( NGGALLERY_ABSPATH . "lib/ngg-db.php" );
-
-		$nggdb = new nggdb();
-		$gallerylist = $nggdb->find_all_galleries( 'gid', 'DESC' ); ?>
+		$mapper      = C_Gallery_Mapper::get_instance();
+		$gallerylist = $mapper->find_all();
+		?>
 
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'nextgen-public-uploader' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" /></p>
