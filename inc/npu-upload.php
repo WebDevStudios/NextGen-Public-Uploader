@@ -393,88 +393,11 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			} else {
 				return $output;
 			}
+
+			return '';
 		}
-
-		// Function: Handle Upload for Widget
-		public function handleUpload_widget() {
-
-			global $wpdb;
-
-			require_once( dirname (__FILE__). '/class.npu_uploader.php' );
-			require_once( NGGALLERY_ABSPATH . '/lib/meta.php' );
-
-			$ngg->options['swfupload'] = false; //Where is this being instantiated?
-
-			if ( isset( $_POST['uploadimage_widget'] ) ) {
-
-				check_admin_referer( 'ngg_addgallery' );
-
-				if ( ! isset( $_FILES['MF__F_0_0']['error'] ) || $_FILES['MF__F_0_0']['error'] == 0 ) {
-
-                    $objUploaderNggAdmin    = new UploaderNggAdmin();
-                    $messagetext            = $objUploaderNggAdmin->upload_images_widget();
-                    $this->arrImageIds      = $objUploaderNggAdmin->arrImageIds;
-                    $this->strGalleryPath   = $objUploaderNggAdmin->strGalleryPath;
-                    $this->arrImageNames    = $objUploaderNggAdmin->arrImageNames;
-
-					if ( is_array( $objUploaderNggAdmin->arrThumbReturn ) && count( $objUploaderNggAdmin->arrThumbReturn ) > 0 ) {
-						foreach ( $objUploaderNggAdmin->arrThumbReturn as $strReturnMsg ) {
-							if ( $strReturnMsg != '1' ) {
-								$this->arrErrorMsg_widg[] = $strReturnMsg;
-							}
-						}
-						$this->arrImageMsg_widg[] = ( get_option( 'npu_upload_success' ) )
-							? get_option( 'npu_upload_success' )
-							: __( 'Thank you! Your image has been submitted and is pending review.', 'nextgen-public-uploader' );
-
-						$this->sendEmail();
-					}
-
-					//Used in update_details method.
-					if ( is_array( $this->arrImageIds ) && count( $this->arrImageIds ) > 0 ) {
-						foreach( $this->arrImageIds as $imageId ) {
-                            $pic                    = nggdb::find_image( $imageId );
-                            $objEXIF                = new nggMeta( $pic->imagePath );
-                            $this->strTitle         = $objEXIF->get_META( 'title' );
-                            $this->strDescription   = $objEXIF->get_META( 'caption' );
-                            $this->strKeywords      = $objEXIF->get_META( 'keywords' );
-                            $this->strTimeStamp     = $objEXIF->get_date_time();
-						}
-					} else {
-						$this->arrErrorMsg_widg[] = ( get_option( 'npu_no_file' ) )
-							? get_option( 'npu_no_file' )
-							: __( 'You must select a file to upload', 'nextgen-public-uploader' );
-					}
-					$this->update_details();
-				} else {
-					$this->arrErrorMsg_widg[] = ( get_option( 'npu_upload_failed' ) )
-						? get_option( 'npu_upload_failed' )
-						: __( 'Upload failed!', 'nextgen-public-uploader' );
-				}
-
-				//If we've encountered any errors, delete?
-				if ( count( $this->arrErrorMsg_widg ) > 0 && ( is_array( $this->arrImageIds ) && count( $this->arrImageIds ) > 0 ) ) {
-					$gal_id = ( !empty( $_POST['galleryselect'] ) ) ? absint( $_POST['galleryselect'] ) : 1;
-
-					foreach ( $this->arrImageIds as $intImageId ) {
-						$filename = $wpdb->get_var( "SELECT filename FROM $wpdb->nggpictures WHERE pid = '$intImageId' " );
-						if ( $filename ) {
-							$gallerypath = $wpdb->get_var( $wpdb->prepare( "SELECT path FROM $wpdb->nggallery WHERE gid = %d", $gal_id ) );
-							if ( $gallerypath ){
-								@unlink( WINABSPATH . $gallerypath . '/thumbs/thumbs_' . $filename );
-								@unlink( WINABSPATH . $gallerypath . '/' . $filename );
-							}
-							$delete_pic = $wpdb->delete( $wpdb->nggpictures, array( 'pid' => $intImageId ), array( '%d' ) );
-						}
-					}
-				}
-			}
-		}
-
-	} // end class
-} // end class if exists
-
-// Create Uploader
+	}
+}
 $npuUpload = new npuGalleryUpload();
 
 /*
