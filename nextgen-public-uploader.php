@@ -233,11 +233,8 @@ class NGGallery_Public_uploader {
 		// Setup the options for our gallery selector
 		$gallery_options = array();
 
-		include_once( NGGALLERY_ABSPATH . 'lib/ngg-db.php' );
-
-		$nggdb = new nggdb();
-
-		$gallerylist = $nggdb->find_all_galleries( 'gid', 'ASC' );
+		$mapper = C_Gallery_Mapper::get_instance();
+		$gallerylist = $mapper->find_all();
 
 		foreach ( $gallerylist as $gallery ) {
 			$name = !empty( $gallery->title ) ? $gallery->title : $gallery->name;
