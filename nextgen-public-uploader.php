@@ -33,9 +33,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class NGGallery_Public_uploader {
 
-	public $basename;
-	public $directory_path;
-	public $directory_url;
+	public $basename = '';
+	public $directory_path = '';
+	public $directory_url = '';
 
 	/**
 	 * Lets build some galleries
