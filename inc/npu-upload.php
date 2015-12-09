@@ -415,7 +415,7 @@ class NextGenPublicUploader extends WP_Widget {
             'description'   => __( 'Upload images to a NextGEN Gallery', 'nextgen-public-uploader' ),
             'classname'     => 'npu_gallery_upload',
 		);
-		parent::__construct( false, _x( 'NextGEN Uploader', 'widget name', 'nextgen-public-uploader' ), $widget_ops );
+		parent::__construct( 'next-gen-public-uploader-widget', __( 'NextGEN Uploader', 'nextgen-public-uploader' ), $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -426,16 +426,16 @@ class NextGenPublicUploader extends WP_Widget {
 		$title = esc_html( $instance['title'] );
 		$gal_id   = esc_attr( $instance['gal_id'] );
 
-		echo $before_widget;
+		echo $args['before_widget'];
 
 		if ( !empty( $title ) ) {
-			echo $before_title . $title . $after_title;
+			echo $args['before_title'] . $title . $args['after_title'];
 		}
-		$npu_uploader->handleUpload_widget();
+		$npu_uploader->handleUpload();
 
 		$npu_uploader->display_uploader_widget( $gal_id, false ); //leave as method in separate class for now.
 
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 
 	function form( $instance ) {
