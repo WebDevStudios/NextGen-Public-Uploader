@@ -61,8 +61,10 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 		 * Abstracts the image upload field.
 		 * Used in the uploader, uploader widget, and Gravity Forms custom input field.
 		 *
-		 * @param  integer $gal_id     Gallery ID for NextGen Gallery.
-		 * @param  string  $context    Context.
+		 * @param integer $gal_id  Gallery ID for NextGen Gallery.
+		 * @param string  $context Context.
+		 * @param bool    $disable Whether ort not to disable.
+		 * @param string  $name    Name to use.
 		 *
 		 * @return string  $strOutput  HTML output for image upload input.
 		 */
@@ -307,13 +309,14 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			}
 		}
 
-
-
-
-
-
 		/**
-		 * Display the form on the frontend widget
+		 * Display the form on the frontend widget.
+		 *
+		 * @param int  $gal_id         Gallery ID
+		 * @param bool $strDetailsPage Something
+		 * @param bool $blnShowAltText Something
+		 * @param bool $echo           Whether or not to echo.
+		 * @return mixed.
 		 */
 		public function display_uploader_widget( $gal_id, $strDetailsPage = false, $blnShowAltText = true, $echo = true ) {
 			$output = '';
