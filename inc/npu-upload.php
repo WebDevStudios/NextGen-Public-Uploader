@@ -421,15 +421,13 @@ class NextGenPublicUploader extends WP_Widget {
 	function widget( $args, $instance ) {
 		$npu_uploader = new npuGalleryUpload();
 
-		extract( $args );
 
-		$title = esc_html( $instance['title'] );
 		$gal_id   = esc_attr( $instance['gal_id'] );
 
 		echo $args['before_widget'];
 
-		if ( !empty( $title ) ) {
-			echo $args['before_title'] . $title . $args['after_title'];
+		if ( !empty( $instance['title'] ) ) {
+			echo $args['before_title'] . esc_html( $instance['title'] ) . $args['after_title'];
 		}
 		$npu_uploader->handleUpload();
 
