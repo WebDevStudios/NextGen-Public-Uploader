@@ -184,15 +184,6 @@ class NGGallery_Public_uploader {
 	 */
 	public function options_page() { ?>
 		<div class="wrap">
-
-			<?php
-			global $wp_version;
-
-			//Only need the icon for 3.7 and down. 3.8 removed support.
-			if ( version_compare( $wp_version, '3.7', '<' ) ) {
-				screen_icon();
-			}
-			?>
 			<h1><?php _e( 'NextGEN Public Uploader', 'nextgen-public-uploader' ); ?></h1>
 
 			<?php if ( isset( $_GET['settings-updated'] ) ) { ?>
