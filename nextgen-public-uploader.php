@@ -57,7 +57,7 @@ class NGGallery_Public_uploader {
 		add_action( 'admin_notices', array( $this, 'maybe_disable_plugin' ) );
 
 		//And our helper functions
-		add_action( 'init', array( $this, 'includes' ) );
+		add_action( 'plugins_loaded', array( $this, 'includes' ) );
 
 		//Here's how people will access the settings
 		add_action( 'admin_menu', array( $this, 'menu' ) );
