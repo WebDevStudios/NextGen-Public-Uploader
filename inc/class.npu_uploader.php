@@ -9,7 +9,7 @@ Does NGG rely on not uploading to the media library, making the functions availa
  */
 
 // Get NextGEN Gallery Functions
-#require_once ( NGGALLERY_ABSPATH . '/admin/functions.php' );
+require_once ( NGGALLERY_ABSPATH . '/admin/functions.php' );
 
 class UploaderNggAdmin extends nggAdmin {
 
