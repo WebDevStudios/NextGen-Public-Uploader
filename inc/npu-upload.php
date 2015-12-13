@@ -357,7 +357,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 					$output .= apply_filters( 'npu_gallery_upload_display_uploader_before_form', '', $this, 'widget' );
 
 					$output .= '<div id="uploadimage">';
-					$output .= '<form name="uploadimage_widget" id="uploadimage_form_widget" method="POST" enctype="multipart/form-data" accept-charset="utf-8">';
+					$output .= '<form name="uploadimage" id="uploadimage_form_widget" method="POST" enctype="multipart/form-data" accept-charset="utf-8">';
 
 					$output .= '<p>' . $this->display_image_upload_input( $gal_id, 'widget' ) . '</p>';
 
