@@ -420,8 +420,7 @@ class NextGenPublicUploader extends WP_Widget {
 	function widget( $args, $instance ) {
 		$npu_uploader = new npuGalleryUpload();
 
-
-		$gal_id   = esc_attr( $instance['gal_id'] );
+		$gal_id = esc_attr( $instance['gal_id'] );
 
 		echo $args['before_widget'];
 
