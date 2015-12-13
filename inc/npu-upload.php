@@ -173,9 +173,8 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 		// Function: Handle Upload for Shortcode
 		public function handleUpload() {
 			global $wpdb;
-			require_once( dirname (__FILE__) . '/class.npu_uploader.php' );
+			require_once( dirname(__FILE__) . '/class.npu_uploader.php' );
 			require_once( NGGALLERY_ABSPATH . '/lib/meta.php' );
-			$ngg->options['swfupload'] = false;
 
 			if ( isset( $_POST['uploadimage'] ) ) {
 				check_admin_referer( 'ngg_addgallery' );
