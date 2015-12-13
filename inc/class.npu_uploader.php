@@ -75,12 +75,10 @@ class UploaderNggAdmin extends nggAdmin {
 						self::show_error( $error_msg );
 						continue;
 					}
-				}
-				catch (E_NggErrorException $ex) {
+				} catch (E_NggErrorException $ex) {
 					self::show_error('<strong>' . $ex->getMessage() . '</strong>');
 					continue;
-				}
-				catch (Exception $ex) {
+				} catch (Exception $ex) {
 					self::show_error('<strong>' . $ex->getMessage() . '</strong>');
 					continue;
 				}
