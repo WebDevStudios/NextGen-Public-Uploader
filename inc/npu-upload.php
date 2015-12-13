@@ -381,7 +381,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 					//set up our submit value text.
 					$submit = ( get_option( 'npu_upload_button' ) ) ? get_option( 'npu_upload_button' ) : __( 'Upload', 'nextgen-public-uploader' );
 
-					$output .= '<div class="submit"><input class="button-primary" type="submit" name="uploadimage_widget" id="uploadimage_btn" value="' . $submit . '" /></div></form></div>';
+					$output .= '<div class="submit"><input class="button-primary" type="submit" name="uploadimage" id="uploadimage_btn" value="' . $submit . '" /></div></form></div>';
 				}
 			}
 
