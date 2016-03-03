@@ -225,17 +225,9 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 					}
 				}
 				if ( count( $this->arrErrorMsg ) > 0 && ( is_array( $this->arrImageIds ) && count( $this->arrImageIds ) > 0 ) ) {
-					$gal_id = ( !empty( $_POST['galleryselect'] ) ) ? absint( $_POST['galleryselect'] ) : 1;
+					$storage = C_Gallery_Storage::get_instance();
 					foreach ( $this->arrImageIds as $intImageId ) {
-						$filename = $wpdb->get_var( "SELECT filename FROM $wpdb->nggpictures WHERE pid = '$intImageId' "); //Prepare me
-						if ( $filename ) {
-							$gallerypath = $wpdb->get_var( $wpdb->prepare( "SELECT path FROM $wpdb->nggallery WHERE gid = %d", $gal_id ) );
-							if ( $gallerypath ){
-								@unlink( ABSPATH . $gallerypath . '/thumbs/thumbs_' . $filename );
-								@unlink( ABSPATH . $gallerypath . '/' . $filename );
-							}
-							$delete_pic = $wpdb->delete( $wpdb->nggpictures, array( 'pid' => $intImageId ), array( '%d' ) );
-						}
+						$storage->delete_image($intImageId);
 					}
 				}
 			}
@@ -243,37 +235,39 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 
 		// Function: Update Details
 		public function update_details() {
-			global $wpdb;
-			$arrUpdateFields = array();
+			$update_description = false;
+			$update_alttext     = false;
+
+			$image_mapper = C_Image_Mapper::get_instance();
 			if ( isset( $_POST['imagedescription'] ) && !empty( $_POST['imagedescription'] ) ) {
-				$this->strDescription = esc_sql( $_POST['imagedescription'] );
-				$arrUpdateFields[] = "description = '$this->strDescription'";
+				$this->strDescription = $_POST['imagedescription'];
+				$update_description = true;
 			} else {
 				return;
 			}
 			if ( isset( $_POST['alttext'] ) && !empty( $_POST['alttext'] ) ) {
-				$this->strTitle = esc_sql( $_POST['alttext'] );
-				$arrUpdateFields[] = "alttext = '$this->strTitle'";
+				$this->strTitle = $_POST['alttext'];
+				$update_alttext = true;
 			}
 			if ( isset( $_POST['tags'] ) && !empty( $_POST['tags'] ) ) {
 				$this->strKeywords = $_POST['tags']; //sanitize!
 			}
-			if ( count( $arrUpdateFields) > 0 ) {
-				if ( ! get_option( 'npu_exclude_select' )  ) {
-					$npu_exclude_id = 0;
-				} else {
-					$npu_exclude_id = 1;
-				}
-				$strUpdateFields = implode( ', ', $arrUpdateFields );
-				$pictures = $this->arrImageIds;
-				if ( count( $pictures ) > 0 ) {
-					foreach ( (array)$pictures as $pid ) {
-						$strQuery = "UPDATE $wpdb->nggpictures SET ";
-						$strQuery .= $strUpdateFields . ", exclude = $npu_exclude_id WHERE pid = $pid";
-						$wpdb->query( $strQuery );
-						$arrTags = explode( ',', $this->strKeywords );
-						wp_set_object_terms( $pid, $arrTags, 'ngg_tag' );
+			if ( count( $this->arrImageIds ) > 0 && ( $update_description || $update_alttext ) ) {
+				foreach ( (array) $this->arrImageIds as $pid ) {
+					$image = $image_mapper->find( $pid );
+					if ( get_option( 'npu_exclude_select' ) ) {
+						$image->exclude = 1;
 					}
+					if ( $update_description ) {
+						$image->description = $this->strDescription;
+					}
+					if ( $update_alttext ) {
+						$image->alttext = $this->strTitle;
+					}
+					$image_mapper->save( $image );
+
+					$arrTags = explode( ',', $this->strKeywords );
+					wp_set_object_terms( $pid, $arrTags, 'ngg_tag' );
 				}
 			}
 
