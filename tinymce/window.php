@@ -40,7 +40,7 @@ if ( !is_user_logged_in() || !current_user_can('edit_posts') )
 
 
 		if(window.tinyMCE) {
-			window.tinyMCE.execInstanceCommand('content', 'mceInsertContent', false, tagtext);
+			window.tinyMCE.execCommand('mceInsertContent', false, tagtext);
 			//Peforms a clean up of the current editor HTML.
 			//tinyMCEPopup.editor.execCommand('mceCleanup');
 			//Repaints the editor. Sometimes the browser has graphic glitches.
