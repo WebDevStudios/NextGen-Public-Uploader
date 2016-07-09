@@ -1,4 +1,10 @@
 <?php
+/**
+ * Uploader things.
+ *
+ * @package NextGenGallery Public Uploader
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -22,7 +28,7 @@ class UploaderNggAdmin extends nggAdmin {
 	 * @since unknown
 	 * @var array
 	 */
-	public $arrImageIds      = array();
+	public $arrImageIds = array();
 
 	/**
 	 * Image Name array.
@@ -30,7 +36,7 @@ class UploaderNggAdmin extends nggAdmin {
 	 * @since unknown
 	 * @var array
 	 */
-	public $arrImageNames    = array();
+	public $arrImageNames = array();
 
 	/**
 	 * Unsure.
@@ -38,7 +44,7 @@ class UploaderNggAdmin extends nggAdmin {
 	 * @since unknown
 	 * @var array
 	 */
-	public $arrThumbReturn   = array();
+	public $arrThumbReturn = array();
 
 	/**
 	 * EXIF data.
@@ -46,7 +52,7 @@ class UploaderNggAdmin extends nggAdmin {
 	 * @since unknown
 	 * @var array
 	 */
-	public $arrEXIF          = array();
+	public $arrEXIF = array();
 
 	/**
 	 * Error messages.
@@ -54,7 +60,7 @@ class UploaderNggAdmin extends nggAdmin {
 	 * @since unknown
 	 * @var array
 	 */
-	public $arrErrorMsg      = array();
+	public $arrErrorMsg = array();
 
 	/**
 	 * Error messages for widget.
@@ -70,7 +76,7 @@ class UploaderNggAdmin extends nggAdmin {
 	 * @since unknown
 	 * @var string
 	 */
-	public $strFileName      = '';
+	public $strFileName = '';
 
 	/**
 	 * Gallery path.
@@ -78,7 +84,7 @@ class UploaderNggAdmin extends nggAdmin {
 	 * @since unknown
 	 * @var string
 	 */
-	public $strGalleryPath   = '';
+	public $strGalleryPath = '';
 
 	/**
 	 * Redirect?
@@ -86,7 +92,7 @@ class UploaderNggAdmin extends nggAdmin {
 	 * @since unknown
 	 * @var bool
 	 */
-	public $blnRedirectPage  = false;
+	public $blnRedirectPage = false;
 
 	/**
 	 * Handle image uploads.
@@ -103,7 +109,7 @@ class UploaderNggAdmin extends nggAdmin {
 		if ( 0 == $galleryID ) {
 			$galleryID = get_option( 'npu_default_gallery' );
 			if ( empty( $galleryID ) ) {
-				self::show_error( __( 'No gallery selected.', 'nextgen-public-uploader' ) );
+				self::show_error( esc_html__( 'No gallery selected.', 'nextgen-public-uploader' ) );
 				return;
 			}
 		}
@@ -111,7 +117,7 @@ class UploaderNggAdmin extends nggAdmin {
 		// Get the Gallery.
 		$gallery = $gallery_mapper->find( $galleryID );
 		if ( ! $gallery->path ) {
-			self::show_error( __('Failure in database, no gallery path set.', 'nextgen-public-uploader' ) );
+			self::show_error( esc_html__('Failure in database, no gallery path set.', 'nextgen-public-uploader' ) );
 			return;
 		}
 
@@ -123,7 +129,7 @@ class UploaderNggAdmin extends nggAdmin {
 						$image = $storage->object->upload_base64_image(
 							$gallery,
 							file_get_contents( $_FILES[ $key ]['tmp_name'] ),
-							$_FILES[$key]['name']
+							$_FILES[ $key ]['name']
 						);
 
 						if ( get_option( 'npu_exclude_select' ) ) {
@@ -144,10 +150,10 @@ class UploaderNggAdmin extends nggAdmin {
 						self::show_error( $error_msg );
 						continue;
 					}
-				} catch (E_NggErrorException $ex) {
+				} catch ( E_NggErrorException $ex ) {
 					self::show_error('<strong>' . $ex->getMessage() . '</strong>');
 					continue;
-				} catch (Exception $ex) {
+				} catch ( Exception $ex ) {
 					self::show_error('<strong>' . $ex->getMessage() . '</strong>');
 					continue;
 				}
