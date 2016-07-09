@@ -42,28 +42,28 @@ class NGGallery_Public_uploader {
 	 */
 	public function __construct() {
 
-		//Some useful properties
+		// Some useful properties.
         $this->basename         = plugin_basename( __FILE__ );
         $this->directory_path   = plugin_dir_path( __FILE__ );
         $this->directory_url    = plugins_url( dirname( $this->basename ) );
 
-        //And a registration hook
+        // And a registration hook.
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
 
-		//Lets let everyone be able to read it, regardless of dialect
+		// Lets let everyone be able to read it, regardless of dialect.
 		load_plugin_textdomain( 'nextgen-public-uploader', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-		//We need NextGen Gallery to work
+		// We need NextGen Gallery to work.
 		add_action( 'admin_notices', array( $this, 'maybe_disable_plugin' ) );
 
-		//And our helper functions
+		// And our helper functions.
 		add_action( 'plugins_loaded', array( $this, 'includes' ) );
 
-		//Here's how people will access the settings
+		// Here's how people will access the settings.
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_init', array( $this, 'plugin_settings' ) );
 
-		//Or this way. Handy!
+		// Or this way. Handy!
 		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'filter_plugin_actions' ) );
 
 		add_action( 'npu_plugin_options_page_after_form', array( $this, 'shortcodes' ) );
@@ -90,13 +90,11 @@ class NGGallery_Public_uploader {
 	 * Check if we meet requirements, and disable if we don't
 	 *
 	 * @since  1.9
-	 *
-	 * @return string  html message.
 	 */
 	public function maybe_disable_plugin() {
 
 		if ( ! $this->meets_requirements() ) {
-			// Display our error
+			// Display our error.
 			echo '<div id="message" class="error">';
 			echo '<p>';
 			echo sprintf(
@@ -109,7 +107,7 @@ class NGGallery_Public_uploader {
 			echo '</p>';
 			echo '</div>';
 
-			// Deactivate our plugin
+			// Deactivate our plugin.
 			deactivate_plugins( $this->basename );
 		}
 
@@ -135,7 +133,7 @@ class NGGallery_Public_uploader {
 	public function activate() {
 
 		if ( $this->meets_requirements() ) {
-			// If our settings don't already exist, load defaults into the database
+			// If our settings don't already exist, load defaults into the database.
 			if ( ! get_option( 'npu_default_gallery' ) ) {
 				update_option( 'npu_default_gallery',          '1' );
 				update_option( 'npu_user_role_select',         '99' );
@@ -158,8 +156,9 @@ class NGGallery_Public_uploader {
 	 */
 	public function menu() {
 
-		//NOTE: Until I figure out how to make it a submenu, it's going as a main menu item
-		/*add_submenu_page(
+		// NOTE: Until I figure out how to make it a submenu, it's going as a main menu item
+		/*
+		 add_submenu_page(
 			'nextgen-gallery',
 			__( 'NextGEN Public Uploader', 'nextgen-public-uploader' ),
 			__( 'Public Uploader', 'nextgen-public-uploader' ),
@@ -214,10 +213,10 @@ class NGGallery_Public_uploader {
 	 */
 	public function plugin_settings() {
 
-		// Register our settings section
+		// Register our settings section.
 		add_settings_section( 'npu_settings', __( 'Settings', 'nextgen-public-uploader' ), array( $this, 'settings_description' ), 'nextgen-public-uploader' );
 
-		// Register all our settings
+		// Register all our settings.
 		register_setting( 'npu_settings', 'npu_default_gallery',          array( $this, 'settings_sanitization' ) );
 		register_setting( 'npu_settings', 'npu_user_role_select',         array( $this, 'settings_sanitization' ) );
 		register_setting( 'npu_settings', 'npu_image_description_select', array( $this, 'settings_sanitization' ) );
@@ -230,7 +229,7 @@ class NGGallery_Public_uploader {
 		register_setting( 'npu_settings', 'npu_upload_success',           array( $this, 'settings_sanitization' ) );
 		register_setting( 'npu_settings', 'npu_upload_failed',            array( $this, 'settings_sanitization' ) );
 
-		// Setup the options for our gallery selector
+		// Setup the options for our gallery selector.
 		$gallery_options = array();
 
 		$mapper = C_Gallery_Mapper::get_instance();
@@ -250,7 +249,7 @@ class NGGallery_Public_uploader {
 			'10' => __( 'Admin', 'nextgen-public-uploader' )
 		) );
 
-		// Add our settings fields
+		// Add our settings fields.
 		add_settings_field(
 			'npu_default_gallery',
 			__( 'Default Gallery:', 'nextgen-public-uploader' ),
@@ -382,19 +381,18 @@ class NGGallery_Public_uploader {
 	}
 
 	/**
-	 * Description setting
+	 * Description setting.
 	 *
-	 * @return string html text
+	 * @since unknown
 	 */
 	public function settings_description() {
 		echo '<p>' . __( 'Edit the settings below to control the default behaviors of this plugin. Shortcode example(s) available at the bottom of the page.', 'nextgen-public-uploader' ) . '</p>';
 	}
 
 	/**
-	 * Echo a <select> input
+	 * Echo a <select> input.
 	 *
-	 * @param  array  $args array of arguments to use
-	 *
+	 * @param array $args array of arguments to use.
 	 * @return mixed        html select input with populated options
 	 */
 	public function settings_select( $args ) {
@@ -412,10 +410,9 @@ class NGGallery_Public_uploader {
 	}
 
 	/**
-	 * Echo a checkbox input
+	 * Echo a checkbox input.
 	 *
-	 * @param  array  $args array of arguments to use
-	 *
+	 * @param array $args Array of arguments to use.
 	 * @return mixed        html checkbox input
 	 */
 	public function settings_checkbox( $args ) {
@@ -431,9 +428,8 @@ class NGGallery_Public_uploader {
 	/**
 	 * Echo a text input
 	 *
-	 * @param  array  $args array of arguments to use
-	 *
-	 * @return mixed        html text input
+	 * @param array $args Array of arguments to use.
+	 * @return mixed HTML text input.
 	 */
 	public function settings_text( $args ) {
 
@@ -445,11 +441,10 @@ class NGGallery_Public_uploader {
 	}
 
 	/**
-	 * Sanitize our settings
+	 * Sanitize our settings.
 	 *
-	 * @param  string  $input value to sanitize before saving
-	 *
-	 * @return string         sanitized value
+	 * @param string $input Value to sanitize before saving.
+	 * @return string Sanitized value
 	 */
 	public function settings_sanitization( $input ) {
 		$valid = esc_html( $input );
@@ -459,9 +454,8 @@ class NGGallery_Public_uploader {
 	/**
 	 * Add our settings link to the plugins listing for our plugin.
 	 *
-	 * @param  array  $links Array of links already available
-	 *
-	 * @return array         Array of new links to use
+	 * @param array $links Array of links already available.
+	 * @return array Array of new links to use
 	 */
 	public function filter_plugin_actions( $links ) {
 		return array_merge(
@@ -472,6 +466,11 @@ class NGGallery_Public_uploader {
 		);
 	}
 
+	/**
+	 * Shortcode stuff.
+	 *
+	 * @since unknown
+	 */
 	public function shortcodes() { ?>
 		<h2><?php _e( 'Shortcode Examples', 'nextgen-public-uploader' ) ?></h2>
 		<p><?php printf( __( 'To insert the public uploader into any content area, use %s or %s, where %s is the ID of the corresponding gallery.', 'nextgen-public-uploader' ), '<code>[ngg_uploader]</code>', '<code>[ngg_uploader id="1"]</code>', '<strong>1</strong>' ); ?></p>
@@ -480,6 +479,11 @@ class NGGallery_Public_uploader {
 	<?php
 	}
 
+	/**
+	 * Custom footer content.
+	 *
+	 * @since unknown
+	 */
 	public function footer_text() { ?>
 		<p>
 			<strong><?php _e('Current Version', 'nextgen-public-uploader') ?>:</strong> <?php $plugin_data = get_plugin_data( __FILE__, false ); echo $plugin_data['Version']; ?> |

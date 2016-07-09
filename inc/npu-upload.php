@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'npuGalleryUpload' ) ) {
 
-	// Public Variables
+	// Public Variables.
 	class npuGalleryUpload {
 
 		public $arrImageIds          = array();
@@ -26,15 +26,17 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 		public $strGalleryPath       = '';
 		public $blnRedirectPage      = false;
 
-		// Function: Constructors
+		/**
+		 * npuGalleryUpload constructor.
+		 */
 		public function __construct() {
-			add_shortcode( 'ngg_uploader', array( $this, 'shortcode_show_uploader' ) ); // Shortcode Uploader
+			add_shortcode( 'ngg_uploader', array( $this, 'shortcode_show_uploader' ) ); // Shortcode Uploader.
 		}
 
-		// Function: Add Scripts
+		// Function: Add Scripts.
 		public function add_scripts() {
 			wp_register_script( 'ngg-ajax', NGGALLERY_URLPATH . 'admin/js/ngg.ajax.js', array( 'jquery' ), '1.0.0' );
-			// Setup Array
+			// Setup Array.
 			wp_localize_script(
 				'ngg-ajax',
 			    'nggAjaxSetup', array(
@@ -83,7 +85,18 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			return $strOutput;
 		}
 
-		// Function: Shortcode Form
+		/**
+		 * Display uploader.
+		 *
+		 * @since unknown
+		 *
+		 * @param int  $gal_id         Gallery ID.
+		 * @param bool $strDetailsPage Details page.
+		 * @param bool $blnShowAltText Show alt text.
+		 * @param bool $echo           Whether or not to echo.
+		 *
+		 * @return string
+		 */
 		public function display_uploader( $gal_id, $strDetailsPage = false, $blnShowAltText = true, $echo = true ) {
 			$strOutput = '';
 			if ( count( $this->arrErrorMsg ) > 0 ) {
@@ -155,6 +168,14 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			return '';
 		}
 
+		/**
+		 * Maybe display image description.
+		 *
+		 * @since unknown
+		 *
+		 * @param bool $i Image.
+		 * @return string
+		 */
 		public function maybe_display_image_description( $i = false ) {
 
 			$strOutput = '';
@@ -170,7 +191,11 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			return $strOutput;
 		}
 
-		// Function: Handle Upload for Shortcode
+		/**
+		 * Handle our upload.
+		 *
+		 * @since unknown
+		 */
 		public function handleUpload() {
 			global $wpdb;
 			require_once( dirname(__FILE__) . '/class.npu_uploader.php' );
@@ -207,7 +232,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 							$this->strDescription = $objEXIF->get_META( 'caption' );
 							$this->strKeywords = $objEXIF->get_META( 'keywords' );
 							$this->strTimeStamp = $objEXIF->get_date_time();
-							//What are we doing with this stuff? It's just reassigning, unless there's only ever 1 index in the array.
+							// What are we doing with this stuff? It's just reassigning, unless there's only ever 1 index in the array.
 						}
 					} else {
 						if ( get_option( 'npu_no_file' ) ) {
@@ -233,7 +258,11 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			}
 		}
 
-		// Function: Update Details
+		/**
+		 * Update our details.
+		 *
+		 * @since unknown
+		 */
 		public function update_details() {
 			$update_description = false;
 			$update_alttext     = false;
@@ -250,7 +279,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 				$update_alttext = true;
 			}
 			if ( isset( $_POST['tags'] ) && !empty( $_POST['tags'] ) ) {
-				$this->strKeywords = $_POST['tags']; //sanitize!
+				$this->strKeywords = $_POST['tags'];
 			}
 			if ( count( $this->arrImageIds ) > 0 && ( $update_description || $update_alttext ) ) {
 				foreach ( (array) $this->arrImageIds as $pid ) {
@@ -274,7 +303,14 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			do_action( 'npu_gallery_upload_update_details', $this );
 		}
 
-		// Function: Shortcode
+		/**
+		 * Output our shortcode.
+		 *
+		 * @since unkown
+		 *
+		 * @param array $atts Shortcode attributes.
+		 * @return string
+		 */
 		public function shortcode_show_uploader( $atts ) {
 
 			$default_args = apply_filters( 'npu_gallery_upload_shortcode_atts', array(
@@ -293,7 +329,11 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 			return $this->display_uploader( $id, false, true, false );
 		}
 
-		// Function: Send Email Notice
+		/**
+		 * Send our email.
+		 *
+		 * @since unknown
+		 */
 		public function sendEmail() {
 
 			if ( get_option( 'npu_notification_email' ) ) {
@@ -309,16 +349,16 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 		/**
 		 * Display the form on the frontend widget.
 		 *
-		 * @param int  $gal_id         Gallery ID
-		 * @param bool $strDetailsPage Something
-		 * @param bool $blnShowAltText Something
+		 * @param int  $gal_id         Gallery ID.
+		 * @param bool $strDetailsPage Something.
+		 * @param bool $blnShowAltText Something.
 		 * @param bool $echo           Whether or not to echo.
 		 * @return mixed.
 		 */
 		public function display_uploader_widget( $gal_id, $strDetailsPage = false, $blnShowAltText = true, $echo = true ) {
 			$output = '';
 
-			//check if we have any error messages
+			// Check if we have any error messages.
 			if ( count( $this->arrErrorMsg_widg ) > 0 ) {
 				$output .= '<div class="upload_error">';
 				foreach ( $this->arrErrorMsg_widg as $msg )  {
@@ -326,7 +366,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 				}
 				$output .= '</div>';
 			}
-			//check if we have any image messages
+			// Check if we have any image messages.
 			if ( count( $this->arrImageMsg_widg ) > 0 ) {
 				$output .= '<div class="upload_error">';
 				foreach ( $this->arrImageMsg_widg as $msg ) {
@@ -372,7 +412,7 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 
 					$output .= apply_filters( 'npu_gallery_upload_display_uploader_before_submit', '', $this, 'widget' );
 
-					//set up our submit value text.
+					// Set up our submit value text.
 					$submit = ( get_option( 'npu_upload_button' ) ) ? get_option( 'npu_upload_button' ) : __( 'Upload', 'nextgen-public-uploader' );
 
 					$output .= '<div class="submit"><input class="button-primary" type="submit" name="uploadimage" id="uploadimage_btn" value="' . $submit . '" /></div></form></div>';
@@ -393,16 +433,24 @@ if ( ! class_exists( 'npuGalleryUpload' ) ) {
 }
 $npuUpload = new npuGalleryUpload();
 
-/*
-Register our widget
+/**
+ * Register our widget.
+ *
+ * @since unkown
  */
 function ngg_public_uploader() {
 	register_widget( "NextGenPublicUploader" );
 }
 add_action( 'widgets_init', 'ngg_public_uploader' );
 
+/**
+ * Class NextGenPublicUploader
+ */
 class NextGenPublicUploader extends WP_Widget {
 
+	/**
+	 * NextGenPublicUploader constructor.
+	 */
 	function __construct() {
 		$widget_ops = array(
             'description'   => __( 'Upload images to a NextGEN Gallery', 'nextgen-public-uploader' ),
@@ -411,6 +459,14 @@ class NextGenPublicUploader extends WP_Widget {
 		parent::__construct( 'next-gen-public-uploader-widget', __( 'NextGEN Uploader', 'nextgen-public-uploader' ), $widget_ops );
 	}
 
+	/**
+	 * Widget display method.
+	 *
+	 * @since unknown
+	 *
+	 * @param array $args     Widghet args.
+	 * @param array $instance Wodget instnace.
+	 */
 	function widget( $args, $instance ) {
 		$npu_uploader = new npuGalleryUpload();
 
@@ -423,14 +479,21 @@ class NextGenPublicUploader extends WP_Widget {
 		}
 		$npu_uploader->handleUpload();
 
-		$npu_uploader->display_uploader_widget( $gal_id, false ); //leave as method in separate class for now.
+		$npu_uploader->display_uploader_widget( $gal_id, false ); // Leave as method in separate class for now.
 
 		echo $args['after_widget'];
 	}
 
+	/**
+	 * Widget form method.
+	 *
+	 * @since Unknown.
+	 *
+	 * @param array $instance Current instance.
+	 */
 	function form( $instance ) {
 
-		// Set Defaults
+		// Set Defaults.
 		$instance = wp_parse_args( (array) $instance, array( 'gal_id' => '0' ) );
 
 		$mapper      = C_Gallery_Mapper::get_instance();
@@ -455,6 +518,15 @@ class NextGenPublicUploader extends WP_Widget {
 	<?php
 	}
 
+	/**
+	 * Update method for widget.
+	 *
+	 * @since unknown
+	 *
+	 * @param array $new_instance New widget instnace.
+	 * @param array $old_instance Old widget instance.
+	 * @return mixed
+	 */
 	function update( $new_instance, $old_instance ) {
 
 		$instance['title'] = sanitize_text_field( $new_instance['title'] );
